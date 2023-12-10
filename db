@@ -1,0 +1,9 @@
+main-2023-12-03-u573px
+un- 7got97v1zyw0cdd38zd8
+pass - pscale_pw_iXoNKXgu1CX1bIeeVK89ITLHljwRxFNjnJA7CAzyLZd
+mysql -h aws.connect.psdb.cloud -D youtube -u 7got97v1zyw0cdd38zd8 -ppscale_pw_iXoNKXgu1CX1bIeeVK89ITLHljwRxFNjnJA7CAzyLZd --ssl-mode=VERIFY_IDENTITY --ssl-ca=/etc/ssl/certs/ca-certificates.crt
+
+
+DATABASE_HOST=aws.connect.psdb.cloud
+DATABASE_USERNAME=y7yb3k20340ri7e9q9s4
+DATABASE_PASSWORD=pscale_pw_iXoNKXgu1CX1bIeeVK89ITLHljwRxFNjnJA7CAzyLZd
