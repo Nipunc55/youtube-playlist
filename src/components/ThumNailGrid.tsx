@@ -50,6 +50,7 @@ const ThumNailGrid = ({ reload }: { reload: boolean }) => {
   return (
     <>
       {thumbnails &&
+        thumbnails.length > 0 &&
         thumbnails.map((video: any) => (
           <div key={video.id} className="bg-gray-100  rounded-md">
             <img
