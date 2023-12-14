@@ -1,12 +1,17 @@
 /** @format */
 
 type videos = {
-	url: string;
-	// categoryId: number;
-	likes: number | null;
-	category: string;
+  url: string;
+  category_id: number | null;
+  likes: number | null;
+  category: string;
 };
 type category = {
-	category: string;
-	id: number;
+  category: string;
+  id: number;
+};
+type video = {
+  url: string;
+  categoryId: number | null;
+  likes: number | null;
 };

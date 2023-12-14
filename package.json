@@ -13,8 +13,10 @@
 		"@planetscale/database": "^1.11.0",
 		"drizzle-orm": "^0.29.1",
 		"next": "14.0.3",
+		"next-navigation": "^1.0.6",
 		"react": "^18",
-		"react-dom": "^18"
+		"react-dom": "^18",
+		"zustand": "^4.4.7"
 	},
 	"devDependencies": {
 		"@types/node": "^20",

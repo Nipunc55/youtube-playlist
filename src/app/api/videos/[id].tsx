@@ -1,20 +1,18 @@
-/** @format */
-
-import { NextResponse, NextRequest } from "next/server";
-
+import { NextResponse } from "next/server";
 import getAllVideos from "@/lib/getAllVideos";
+export async function GET(request: Request) {
+  console.log("Request Query:", request.json());
 
-export async function GET(request: NextRequest) {
   let response = { error: false, data: {} };
 
   try {
-    const id: number = Number(request.nextUrl.searchParams.get("id") || 0);
-
-    const videos = await getAllVideos(id);
+    const videos = await getAllVideos(2);
     response.data = videos;
   } catch (error: any) {
     response = { error: true, data: error };
   }
+
+  console.log("Response:", response);
 
   return NextResponse.json(response);
 }

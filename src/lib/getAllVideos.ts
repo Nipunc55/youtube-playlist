@@ -6,7 +6,7 @@ import { drizzle } from 'drizzle-orm/planetscale-serverless';
 import { videos, category } from '@/db/schema';
 import { eq } from 'drizzle-orm';
 
-export default async function getAllVideos(): Promise<videos[]> {
+export default async function getAllVideos(categoryId:number): Promise<videos[]> {
 	const conn = connect(config);
 	const db = drizzle(conn);
 
@@ -14,10 +14,12 @@ export default async function getAllVideos(): Promise<videos[]> {
 		.select({
 			url: videos.url,
 			likes: videos.likes,
+			category_id:videos.categoryId,
 
 			category: category.category,
 		})
 		.from(videos)
+		.where(eq(videos.categoryId, categoryId))
 		.innerJoin(category, eq(videos.categoryId, category.id));
 
 	return results;
