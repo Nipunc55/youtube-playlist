@@ -29,6 +29,7 @@ const ThumNailGrid = ({ reload }: { reload: boolean }) => {
   React.useEffect(() => {
     const thumbnails: any =
       videos &&
+      videos.length > 0 &&
       videos.map((video: any, index) => ({
         thumbnail: extractYouTubeVideoId(video.url),
         id: index,
