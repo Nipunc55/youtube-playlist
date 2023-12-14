@@ -1,9 +1,9 @@
 /** @format */
 
-import { NextResponse } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
 import getAllCategories from "@/lib/getCategories";
 
-export async function GET(request: Request) {
+export async function GET(request: NextRequest) {
   let response = { error: false, data: {} };
   try {
     const categories = await getAllCategories();
