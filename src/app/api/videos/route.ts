@@ -8,8 +8,7 @@ export async function GET(request: NextRequest) {
   let response = { error: false, data: {} };
 
   try {
-    const id: number = Number(2);
-
+    const id: number = Number(request.nextUrl.searchParams.get("id") || 0);
     const videos = await getAllVideos(id);
     response.data = videos;
   } catch (error: any) {
@@ -18,3 +17,4 @@ export async function GET(request: NextRequest) {
 
   return NextResponse.json(response);
 }
+export const dynamic = "force-dynamic";
