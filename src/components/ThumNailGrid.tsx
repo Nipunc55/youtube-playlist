@@ -10,6 +10,8 @@ interface ThumNailGridProps {
 }
 // { categoryId }: ThumNailGridProps
 const ThumNailGrid = ({ reload }: { reload: boolean }) => {
+  const [loaded, setLoading] = React.useState(false);
+  const { categoryList } = useStore();
   const { selectedCategoryId } = useStore();
   const [videos, setVideos] = React.useState<videos[] | null | undefined>();
   const [thumbnails, setThumbnails] = React.useState<any | null | undefined>();
@@ -26,7 +28,7 @@ const ThumNailGrid = ({ reload }: { reload: boolean }) => {
     };
 
     fetchData();
-  }, [selectedCategoryId, reload]);
+  }, [selectedCategoryId, loaded]);
   React.useEffect(() => {
     const thumbnails: any =
       videos &&
@@ -35,6 +37,7 @@ const ThumNailGrid = ({ reload }: { reload: boolean }) => {
         thumbnail: extractYouTubeVideoId(video.url),
         id: index,
         likes: video.likes,
+        url: video.url,
       }));
     setThumbnails(thumbnails);
   }, [videos]);
@@ -47,13 +50,53 @@ const ThumNailGrid = ({ reload }: { reload: boolean }) => {
     }
     return null;
   }
+  const handleSubmit = (data: video) => {
+    handleAddVideo(data);
+  };
+  const handleAddVideo = async (videoData: video) => {
+    setLoading(true);
+    try {
+      const response = await fetch("/api/add-video", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(videoData),
+      });
 
+      if (!response.ok) {
+        setLoading(false);
+        throw new Error("Failed to add video");
+      }
+      setLoading(false);
+
+      const result = await response.json();
+
+      console.log(result.data);
+      if (result.data.status == 400) {
+        alert("video already exits!");
+      }
+    } catch (error) {
+      console.error("Error adding video:", error);
+    }
+  };
+  const openYouTubeLink = (video: any) => {
+    // Check if the video object has a valid YouTube link
+    if (video && video.url) {
+      // Open the YouTube link in a new tab
+      window.open(video.url, "_blank");
+    }
+  };
   return (
     <>
       {thumbnails &&
         thumbnails.length > 0 &&
         thumbnails.map((video: any) => (
-          <div key={video.id} className="bg-gray-100  rounded-md">
+          <div
+            key={video.id}
+            className="bg-gray-100 rounded-md overflow-hidden transform transition-transform duration-300 hover:scale-105 cursor-pointer"
+            onClick={() => openYouTubeLink(video)}
+          >
             <img
               src={video.thumbnail || ""}
               // alt={video.title}
@@ -62,7 +105,7 @@ const ThumNailGrid = ({ reload }: { reload: boolean }) => {
             />
           </div>
         ))}
-      {/* <VideoForm onSubmit={handleSubmit} categories={categoryList} /> */}
+      <VideoForm onSubmit={handleSubmit} categories={categoryList} />
     </>
   );
 };
