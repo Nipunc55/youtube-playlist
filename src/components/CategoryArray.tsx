@@ -42,7 +42,7 @@ const CategoryArray = () => {
   }, []);
 
   return (
-    <div className="fixed  px-3 bg-gray-800 w-full" style={{ top: "3.8rem" }}>
+    <div className="fixed  px-3  w-full" style={{ top: "3.8rem" }}>
       {categories &&
         categories.map((category) => (
           <button
