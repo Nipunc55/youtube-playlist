@@ -47,9 +47,8 @@ const TumbNailContainer = () => {
     <>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-4 w-full p-4 ">
         <ThumNailGrid reload={loaded} />
-        <VideoForm onSubmit={handleSubmit} categories={categoryList} />
       </div>
-      <Pagination />
+      {/* <Pagination /> */}
     </>
   );
 };

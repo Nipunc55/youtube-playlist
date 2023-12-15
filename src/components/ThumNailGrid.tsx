@@ -4,6 +4,7 @@
 "use client";
 import { useStore } from "@/store/store";
 import React from "react";
+import VideoForm from "./VideosInput";
 interface ThumNailGridProps {
   categoryId: number;
 }
@@ -61,6 +62,7 @@ const ThumNailGrid = ({ reload }: { reload: boolean }) => {
             />
           </div>
         ))}
+      {/* <VideoForm onSubmit={handleSubmit} categories={categoryList} /> */}
     </>
   );
 };

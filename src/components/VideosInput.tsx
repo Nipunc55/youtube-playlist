@@ -1,6 +1,6 @@
 // components/VideoForm.tsx
 import { useState, useEffect } from "react";
-// Assuming you have a types file with the 'videos' type
+import { useStore } from "@/store/store";
 
 interface VideoFormProps {
   onSubmit: (data: video) => void;
@@ -8,9 +8,10 @@ interface VideoFormProps {
 }
 
 const VideoForm: React.FC<VideoFormProps> = ({ onSubmit, categories }) => {
+  const { selectedCategoryId } = useStore();
   const [formData, setFormData] = useState<video>({
     url: "",
-    categoryId: null,
+    categoryId: selectedCategoryId,
     likes: null,
   });
 
@@ -24,9 +25,13 @@ const VideoForm: React.FC<VideoFormProps> = ({ onSubmit, categories }) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onSubmit(formData);
-
-    // Additional logic for closing the popup or resetting form if needed
   };
+  useEffect(() => {
+    setFormData((prevData: any) => ({
+      ...prevData,
+      categoryId: selectedCategoryId,
+    }));
+  }, [selectedCategoryId]);
 
   return (
     <div className="bg-white p-6 rounded-md shadow-md text-center text-gray-800">
@@ -54,23 +59,11 @@ const VideoForm: React.FC<VideoFormProps> = ({ onSubmit, categories }) => {
             </option>
           ))}
         </select>
-
-        {/* <label className="block mb-4">
-          Likes:
-          <input
-            type="number"
-            name="likes"
-            value={formData.likes || ""}
-            onChange={handleChange}
-            className="border p-2 w-full"
-          />
-        </label> */}
-
         <button
           type="submit"
           className="bg-blue-500 text-white p-2 rounded-md m-1"
         >
-          Submit
+          Add Video
         </button>
       </form>
     </div>
