@@ -4,8 +4,10 @@ import { useStore } from "@/store/store";
 
 function StoreInitializer({
   selectedCategoryId,
+  categoryRefresh,
 }: {
   selectedCategoryId: number;
+  categoryRefresh: Boolean;
 }) {
   const initialize = useRef(false);
   if (!initialize.current) {

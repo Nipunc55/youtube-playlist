@@ -4,7 +4,8 @@
 import { useStore } from "@/store/store";
 import { useSearchParams } from "next/navigation";
 
-import React from "react";
+import React, { useState } from "react";
+import CategoryInput from "./CategoryInput";
 
 interface CategoryArrayProps {
   onCategoryChange: (categoryId: number) => void;
@@ -12,16 +13,13 @@ interface CategoryArrayProps {
 
 const CategoryArray = () => {
   const searchParams = useSearchParams();
-  const { selectedCategoryId } = useStore();
-  const [categories, setCategories] = React.useState<category[]>();
+  const { selectedCategoryId, categoryRefresh } = useStore();
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  const [categories, setCategories] = useState<category[]>();
 
   const handleButtonClick = (categoryId: number) => {
     useStore.setState((prev) => ({ ...prev, selectedCategoryId: categoryId }));
-    // Router.push({
-    //   pathname: "/",
-    //   query: { selectedCategoryId: categoryId },
-    // });
-    // router.refresh();
   };
 
   React.useEffect(() => {
@@ -39,10 +37,13 @@ const CategoryArray = () => {
     };
 
     fetchData();
-  }, []);
+  }, [categoryRefresh]);
 
   return (
-    <div className="fixed px-3 w-full" style={{ top: "3.8rem" }}>
+    <div
+      className="fixed px-3 w-full my-1 "
+      style={{ top: "3.8rem", zIndex: "100" }}
+    >
       {categories &&
         categories.map((category) => (
           <button
@@ -57,6 +58,29 @@ const CategoryArray = () => {
             {category.category}
           </button>
         ))}
+
+      <button
+        className={`h-10 w-8 inline-flex items-center justify-center rounded-md text-center text-xs font-medium text-gray-300 ring-1 ring-inset mx-1`}
+        style={{ verticalAlign: "middle" }}
+        onClick={() => setModalOpen((pre) => !pre)}
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-6 w-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="3"
+            d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+          />
+        </svg>
+      </button>
+
+      <CategoryInput modalStatus={isModalOpen} />
     </div>
   );
 };

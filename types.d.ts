@@ -15,3 +15,6 @@ type video = {
   categoryId: number | null;
   likes: number | null;
 };
+type categoryName = {
+  category: string;
+};
