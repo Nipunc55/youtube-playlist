@@ -20,7 +20,7 @@ const CategoryInput: React.FC<CategoryInputProps> = ({ modalStatus }) => {
   useEffect(() => {
     setModalOpen((pre) => !pre);
   }, [modalStatus]);
-  console.log(isModalOpen);
+  console.log(modalStatus);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
