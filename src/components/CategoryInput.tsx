@@ -9,7 +9,7 @@ interface CategoryInputProps {
 
 const CategoryInput: React.FC<CategoryInputProps> = ({ modalStatus }) => {
   const { categoryRefresh } = useStore();
-  const [isModalOpen, setModalOpen] = useState(modalStatus);
+  const [isModalOpen, setModalOpen] = useState(false);
   const [formData, setFormData] = useState<any>({
     categoryName: "",
   });
