@@ -45,19 +45,21 @@ const CategoryArray = () => {
       style={{ top: "3.8rem", zIndex: "100" }}
     >
       {categories &&
-        categories.map((category) => (
-          <button
-            key={category.id}
-            className={`h-10 inline-flex items-center rounded-md  px-2 py-1 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10 mx-1 ${
-              selectedCategoryId === category.id
-                ? "bg-blue-500 text-white"
-                : "bg-gray-50"
-            }`}
-            onClick={() => handleButtonClick(category.id)}
-          >
-            {category.category}
-          </button>
-        ))}
+        categories
+          .sort((a, b) => a.id - b.id)
+          .map((category) => (
+            <button
+              key={category.id}
+              className={`h-10 inline-flex items-center rounded-md  px-2 py-1 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10 mx-1 ${
+                selectedCategoryId === category.id
+                  ? "bg-blue-500 text-white"
+                  : "bg-gray-50"
+              }`}
+              onClick={() => handleButtonClick(category.id)}
+            >
+              {category.category}
+            </button>
+          ))}
 
       <button
         className={`h-10 w-8 inline-flex items-center justify-center rounded-md text-center text-xs font-medium text-gray-300 ring-1 ring-inset mx-1`}
