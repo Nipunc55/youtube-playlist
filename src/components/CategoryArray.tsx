@@ -6,7 +6,7 @@ import { useSearchParams } from "next/navigation";
 
 import React, { useState } from "react";
 import CategoryInput from "./CategoryInput";
-
+import { useSpring, animated } from "react-spring";
 interface CategoryArrayProps {
   onCategoryChange: (categoryId: number) => void;
 }
@@ -17,6 +17,11 @@ const CategoryArray = () => {
   const [isModalOpen, setModalOpen] = useState(false);
 
   const [categories, setCategories] = useState<category[]>();
+  const [style, set] = useSpring(() => ({ x: 0 }));
+
+  const handleSlide = (index: any) => {
+    set({ x: -index * 100 }); // Adjust the width of each slide as needed
+  };
 
   const handleButtonClick = (categoryId: number) => {
     useStore.setState((prev) => ({ ...prev, selectedCategoryId: categoryId }));
@@ -44,23 +49,29 @@ const CategoryArray = () => {
       className="fixed px-3 w-full my-1 "
       style={{ top: "3.8rem", zIndex: "100" }}
     >
-      {categories &&
-        categories
-          .sort((a, b) => a.id - b.id)
-          .map((category) => (
-            <button
-              key={category.id}
-              className={`h-10 inline-flex items-center rounded-md  px-2 py-1 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10 mx-1 ${
-                selectedCategoryId === category.id
-                  ? "bg-blue-500 text-white"
-                  : "bg-gray-50"
-              }`}
-              onClick={() => handleButtonClick(category.id)}
-            >
-              {category.category}
-            </button>
-          ))}
-
+      <animated.div
+        style={{
+          display: "flex",
+          transform: style.x.interpolate((x) => `translate3d(${x}%, 0, 0)`),
+        }}
+      >
+        {categories &&
+          categories
+            .sort((a, b) => a.id - b.id)
+            .map((category) => (
+              <button
+                key={category.id}
+                className={`h-10 inline-flex items-center rounded-md  px-2 py-1 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10 mx-1 ${
+                  selectedCategoryId === category.id
+                    ? "bg-blue-500 text-white"
+                    : "bg-gray-50"
+                }`}
+                onClick={() => handleButtonClick(category.id)}
+              >
+                {category.category}
+              </button>
+            ))}
+      </animated.div>
       <button
         className={`h-10 w-8 inline-flex items-center justify-center rounded-md text-center text-xs font-medium text-gray-300 ring-1 ring-inset mx-1`}
         style={{ verticalAlign: "middle" }}
