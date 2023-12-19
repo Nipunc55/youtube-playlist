@@ -7,6 +7,7 @@ import { useSearchParams } from "next/navigation";
 import React, { useState } from "react";
 import CategoryInput from "./CategoryInput";
 import { useSpring, animated } from "react-spring";
+import { useGesture } from "react-use-gesture";
 interface CategoryArrayProps {
   onCategoryChange: (categoryId: number) => void;
 }
@@ -20,9 +21,13 @@ const CategoryArray = () => {
   const [style, set] = useSpring(() => ({ x: 0 }));
 
   const handleSlide = (index: any) => {
-    set({ x: -index * 100 }); // Adjust the width of each slide as needed
+    set((pre: any) => ({ x: -index * 5 + pre.x })); // Adjust the width of each slide as needed
   };
-
+  const bind = useGesture({
+    onDrag: ({ offset: [x] }) => {
+      set({ x });
+    },
+  });
   const handleButtonClick = (categoryId: number) => {
     useStore.setState((prev) => ({ ...prev, selectedCategoryId: categoryId }));
   };
@@ -48,6 +53,7 @@ const CategoryArray = () => {
     <div
       className="fixed px-3 w-full my-1 "
       style={{ top: "3.8rem", zIndex: "100" }}
+      {...bind()}
     >
       <animated.div
         style={{
@@ -58,7 +64,7 @@ const CategoryArray = () => {
         {categories &&
           categories
             .sort((a, b) => a.id - b.id)
-            .map((category) => (
+            .map((category, index) => (
               <button
                 key={category.id}
                 className={`h-10 inline-flex items-center rounded-md  px-2 py-1 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10 mx-1 ${
@@ -66,7 +72,10 @@ const CategoryArray = () => {
                     ? "bg-blue-500 text-white"
                     : "bg-gray-50"
                 }`}
-                onClick={() => handleButtonClick(category.id)}
+                onClick={() => {
+                  handleSlide(index);
+                  handleButtonClick(category.id);
+                }}
               >
                 {category.category}
               </button>
