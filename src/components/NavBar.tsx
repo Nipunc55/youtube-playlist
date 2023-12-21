@@ -4,7 +4,10 @@ import Link from "next/link";
 
 const Navbar = () => {
   return (
-    <nav className="fixed top-0 w-full bg-gray-800 bg-opacity-50 p-4 ">
+    <nav
+      className="fixed top-0 w-full bg-gray-900 bg-opacity-95 p-4 "
+      style={{ zIndex: "100" }}
+    >
       <div className="container mx-auto">
         <div className="flex items-center justify-between">
           <div className="text-white font-bold text-lg">Youtube Playlists</div>

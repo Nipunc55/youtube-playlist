@@ -58,7 +58,7 @@ const CategoryArray = () => {
       <animated.div
         style={{
           display: "flex",
-          transform: style.x.interpolate((x) => `translate3d(${x}%, 0, 0)`),
+          transform: style.x.interpolate((x) => `translate3d(${x / 5}%, 0, 0)`),
         }}
       >
         {categories &&
@@ -80,27 +80,27 @@ const CategoryArray = () => {
                 {category.category}
               </button>
             ))}
-      </animated.div>
-      <button
-        className={`h-10 w-8 inline-flex items-center justify-center rounded-md text-center text-xs font-medium text-gray-300 ring-1 ring-inset mx-1`}
-        style={{ verticalAlign: "middle" }}
-        onClick={() => setModalOpen((pre) => !pre)}
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-6 w-6"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
+        <button
+          className={`h-10 w-8 inline-flex items-center justify-center rounded-md text-center text-xs font-medium text-gray-300 ring-1 ring-inset mx-1`}
+          style={{ verticalAlign: "middle" }}
+          onClick={() => setModalOpen((pre) => !pre)}
         >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="3"
-            d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-          />
-        </svg>
-      </button>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="3"
+              d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+            />
+          </svg>
+        </button>
+      </animated.div>
 
       <CategoryInput modalStatus={isModalOpen} />
     </div>
