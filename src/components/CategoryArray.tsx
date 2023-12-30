@@ -58,7 +58,7 @@ const CategoryArray = () => {
       <animated.div
         style={{
           display: "flex",
-          transform: style.x.interpolate((x) => `translate3d(${x / 5}%, 0, 0)`),
+          transform: style.x.interpolate((x) => `translate3d(${x}%, 0, 0)`),
         }}
       >
         {categories &&

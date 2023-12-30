@@ -18,3 +18,10 @@ type video = {
 type categoryName = {
   category: string;
 };
+type user = {
+  user_id: number | null;
+  username: string;
+  email: string;
+  password: string;
+  passwordHash: string;
+};
