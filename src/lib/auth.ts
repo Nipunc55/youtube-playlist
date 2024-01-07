@@ -28,7 +28,7 @@ export const authConfig: NextAuthOptions = {
         if (!credentials || !credentials.email || !credentials.password)
           return null;
 
-        const dbUser: user = await db.select({
+        const dbUser = await db.select({
           username: users.username,
           email: users.email,
         });
@@ -36,10 +36,10 @@ export const authConfig: NextAuthOptions = {
         //Verify Password here
         //We are going to use a simple === operator
         //In production DB, passwords should be encrypted using something like bcrypt...
-        if (dbUser && dbUser.password === credentials.password) {
-          const { password, ...dbUserWithoutPassword } = dbUser;
-          return dbUserWithoutPassword as User;
-        }
+        // if (dbUser && dbUser?.password === credentials.password) {
+        //   const { password, ...dbUserWithoutPassword } = dbUser;
+        //   return dbUserWithoutPassword as User;
+        // }
 
         return null;
       },

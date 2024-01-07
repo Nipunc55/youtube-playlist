@@ -19,7 +19,7 @@ type categoryName = {
   category: string;
 };
 type user = {
-  user_id: number | null;
+  // user_id: number | null;
   username: string;
   email: string;
 
