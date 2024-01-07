@@ -9,9 +9,9 @@ export default async function RegisterForm() {
 
     // Filter the array to include only 'email' and 'password' entries
     const credentials: inputUser = {
-      username: formData.get("username"),
-      email: formData.get("email"),
-      password: formData.get("password"),
+      username: formData.get("username")?.toString() || "",
+      email: formData.get("email")?.toString() || "",
+      password: formData.get("password")?.toString() || "",
     };
     const register = await signUpUser(credentials);
     if (register) {
