@@ -1,8 +1,26 @@
 // components/LoginForm.js
 
-export default async function LoginForm() {
-  function handleClick() {
-    window.location.href = "/new-route";
+import signUpUser from "@/lib/signUp";
+import { redirect } from "next/navigation";
+
+export default async function RegisterForm() {
+  async function handleClick(formData: FormData) {
+    "use server";
+
+    // Filter the array to include only 'email' and 'password' entries
+    const credentials: inputUser = {
+      username: formData.get("username"),
+      email: formData.get("email"),
+      password: formData.get("password"),
+    };
+    const register = await signUpUser(credentials);
+    if (register) {
+      console.log(register);
+
+      redirect("/");
+    } else {
+      console.log(register);
+    }
   }
   return (
     <div className="flex flex-col items-center justify-center px-6 py-20 mx-auto md:h-screen lg:py-0">
@@ -11,7 +29,19 @@ export default async function LoginForm() {
           <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
             Sign up a new your account
           </h1>
-          <form className="space-y-4 md:space-y-6" action="#">
+          <form className="space-y-4 md:space-y-6" action={handleClick}>
+            <div>
+              <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                Your name
+              </label>
+              <input
+                type="username"
+                name="username"
+                id="username"
+                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="name"
+              />
+            </div>
             <div>
               <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                 Your email

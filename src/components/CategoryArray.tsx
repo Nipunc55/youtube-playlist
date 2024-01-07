@@ -11,7 +11,8 @@ import { useGesture } from "react-use-gesture";
 interface CategoryArrayProps {
   onCategoryChange: (categoryId: number) => void;
 }
-
+const minX = -80; // minimum translation value
+const maxX = 1; // maximum translation value
 const CategoryArray = () => {
   const searchParams = useSearchParams();
   const { selectedCategoryId, categoryRefresh } = useStore();
@@ -48,7 +49,9 @@ const CategoryArray = () => {
 
     fetchData();
   }, [categoryRefresh]);
-
+  function clamp(value: number, min: number, max: number): number {
+    return Math.min(Math.max(value, min), max);
+  }
   return (
     <div
       className="fixed px-3 w-full my-1 "
@@ -58,7 +61,10 @@ const CategoryArray = () => {
       <animated.div
         style={{
           display: "flex",
-          transform: style.x.interpolate((x) => `translate3d(${x}%, 0, 0)`),
+          transform: style.x.interpolate(
+            (x) => `translate3d(${clamp(x, minX, maxX)}%, 0, 0)`
+          ),
+          // transform: style.x.interpolate((x) => `translate3d(${x}%, 0, 0)`),
         }}
       >
         {categories &&

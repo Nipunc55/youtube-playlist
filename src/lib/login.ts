@@ -32,12 +32,12 @@ export default async function loginUser(credentials: any) {
       );
 
       if (authentication) return { authentication, username, email };
-      return null;
+      return { status: false, message: "invalid credentials" };
     } else {
-      return null; // Invalid credentials
+      return { status: false, message: "invalid credentials" }; // Invalid credentials
     }
   } catch (error) {
     console.error("Error logging in user:", error);
-    return null;
+    return { status: false, message: "server error" };
   }
 }

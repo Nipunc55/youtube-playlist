@@ -13,6 +13,8 @@ export default async function LoginForm() {
     const login = await loginUser(credentials);
     if (login?.authentication) {
       redirect("/");
+    } else {
+      console.log(login);
     }
   }
   return (
