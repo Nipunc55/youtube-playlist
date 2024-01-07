@@ -11,10 +11,10 @@ import { useGesture } from "react-use-gesture";
 interface CategoryArrayProps {
   onCategoryChange: (categoryId: number) => void;
 }
-const minX = -80; // minimum translation value
-const maxX = 1; // maximum translation value
+
 const CategoryArray = () => {
   const searchParams = useSearchParams();
+  const [limits, setLimits] = useState({ minX: -80, maxX: 1 });
   const { selectedCategoryId, categoryRefresh } = useStore();
   const [isModalOpen, setModalOpen] = useState(false);
 
@@ -42,6 +42,11 @@ const CategoryArray = () => {
         useStore.setState((prev) => ({ ...prev, categoryList: data.data }));
 
         setCategories(data.data);
+        const screenWidth = window.innerWidth;
+        setLimits((pre) => ({
+          ...pre,
+          minX: (-6000 * data.data.length) / screenWidth,
+        }));
       } catch (error) {
         console.log("Error fetching categories:", error);
       }
@@ -62,7 +67,7 @@ const CategoryArray = () => {
         style={{
           display: "flex",
           transform: style.x.interpolate(
-            (x) => `translate3d(${clamp(x, minX, maxX)}%, 0, 0)`
+            (x) => `translate3d(${clamp(x, limits.minX, limits.maxX)}%, 0, 0)`
           ),
           // transform: style.x.interpolate((x) => `translate3d(${x}%, 0, 0)`),
         }}
