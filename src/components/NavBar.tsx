@@ -2,26 +2,35 @@
 "use client";
 import React from "react";
 import Link from "next/link";
+import { useStore } from "@/store/store";
 import { useRouter } from "next/navigation";
 const Navbar = () => {
-  const [isAuthenticated, setAuthenticated] = React.useState(false);
+  // const [isAuthenticated, setAuthenticated] = React.useState(false);
+  const { isAuthenticated } = useStore();
   const router = useRouter();
-
+  React.useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token)
+      useStore.setState((prev) => ({ ...prev, isAuthenticated: true }));
+  }, []);
   const handleLogin = () => {
     // Implement your login logic here
-    setAuthenticated(true);
+    // setAuthenticated(true);
     router.push("/login");
   };
 
   const handleSignup = () => {
     // Implement your signup logic here
-    setAuthenticated(true);
+    // setAuthenticated(true);
     router.push("/signup");
   };
 
   const handleLogout = () => {
     // Implement your logout logic here
-    setAuthenticated(false);
+    // setAuthenticated(false);
+    localStorage.removeItem("token");
+    useStore.setState((prev) => ({ ...prev, isAuthenticated: false }));
+    router.push("/login");
   };
   return (
     <nav

@@ -4,6 +4,7 @@ import { drizzle } from "drizzle-orm/planetscale-serverless";
 import { users } from "@/db/schema";
 import { comparePassword } from "@/utils/password"; // You need to implement a password comparison function
 import { eq } from "drizzle-orm";
+import { genareteToken } from "@/utils/token";
 
 export default async function loginUser(credentials: any) {
   const conn = connect(config);
@@ -31,7 +32,10 @@ export default async function loginUser(credentials: any) {
         user[0].passwordHash
       );
 
-      if (authentication) return { authentication, username, email };
+      if (authentication) {
+        const token = genareteToken({ username, email });
+        return { authentication, username, email, token };
+      }
       return { status: false, message: "invalid credentials" };
     } else {
       return { status: false, message: "invalid credentials" }; // Invalid credentials

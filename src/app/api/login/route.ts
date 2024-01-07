@@ -11,13 +11,16 @@ export async function POST(request: NextRequest) {
 
   try {
     const body = await request.json();
-    const { credentials }: { credentials: Credentials } = body || {
+
+    const { email, password }: Credentials = body || {
       credentials: { email: "", password: "" },
     };
 
-    const login = await loginUser(credentials);
+    const login = await loginUser({ email, password });
 
     if (login) {
+      // console.log(login);
+
       response.data = login;
     } else {
       response = { error: true, data: { message: "invalid credential" } };

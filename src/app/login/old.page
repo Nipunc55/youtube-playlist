@@ -1,63 +1,22 @@
 // components/LoginForm.js
-"use client";
-import { useRouter } from "next/navigation";
-import { useStore } from "@/store/store";
-import { useState, useEffect } from "react";
+import loginUser from "@/lib/login";
+import { redirect } from "next/navigation";
+export default async function LoginForm() {
+  async function handleClick(formData: FormData) {
+    "use server";
 
-export default function LoginForm() {
-  const [formData, setFormData] = useState(new FormData());
-  const router = useRouter();
-  const { isAuthenticated } = useStore();
-
-  useEffect(() => {
-    if (isAuthenticated) router.push("/");
-  }, [isAuthenticated]);
-  const handleChange = (e: any) => {
-    const { name, value } = e.target;
-    formData.set(name, value);
-  };
-
-  const handleSubmit = (e: any) => {
-    e.preventDefault();
-    handleClick(formData);
-  };
-
-  const handleClick = async (formData: any) => {
     // Filter the array to include only 'email' and 'password' entries
     const credentials = {
       email: formData.get("email"),
       password: formData.get("password"),
     };
-
-    try {
-      const response = await fetch("/api/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(credentials),
-      });
-
-      if (response.ok) {
-        const login = await response.json();
-        console.log(login);
-
-        if (!login?.error) {
-          const { email, token, username } = login?.data;
-          console.log("Successfully logged in!");
-          localStorage.setItem("token", token);
-          useStore.setState((prev) => ({ ...prev, isAuthenticated: true }));
-        } else {
-          console.log(login);
-        }
-      } else {
-        console.log("Login failed.");
-      }
-    } catch (error) {
-      console.error("Error during login:", error);
+    const login = await loginUser(credentials);
+    if (login?.authentication) {
+      redirect("/");
+    } else {
+      console.log(login);
     }
-  };
-
+  }
   return (
     <div className="flex flex-col items-center justify-center px-6 py-20 mx-auto md:h-screen lg:py-0">
       <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
@@ -65,7 +24,7 @@ export default function LoginForm() {
           <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
             Sign in to your account
           </h1>
-          <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
+          <form className="space-y-4 md:space-y-6" action={handleClick}>
             <div>
               <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                 Your email
@@ -74,7 +33,6 @@ export default function LoginForm() {
                 type="email"
                 name="email"
                 id="email"
-                onChange={handleChange}
                 className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="name@company.com"
               />
@@ -84,7 +42,6 @@ export default function LoginForm() {
                 Password
               </label>
               <input
-                onChange={handleChange}
                 type="password"
                 name="password"
                 id="password"

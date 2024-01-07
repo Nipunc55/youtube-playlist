@@ -5,9 +5,11 @@ import { useStore } from "@/store/store";
 function StoreInitializer({
   selectedCategoryId,
   categoryRefresh,
+  isAuthenticated,
 }: {
   selectedCategoryId: number;
   categoryRefresh: Boolean;
+  isAuthenticated: Boolean;
 }) {
   const initialize = useRef(false);
   if (!initialize.current) {
