@@ -13,7 +13,8 @@ export function validateToken(token: string): { valid: boolean; data?: any } {
     return { valid: false };
   }
 }
-export function genareteToken({ username, email }) {
+
+export function genareteToken({ username, email }: tokenParams) {
   const token = sign({ username, email }, secretKey, {
     expiresIn: "1h", // Token expiration time (optional)
   });

@@ -30,3 +30,7 @@ type inputUser = {
   email: string;
   password: string;
 };
+type tokenParams = {
+  username: string;
+  email: string;
+};
