@@ -4,7 +4,7 @@ import { drizzle } from "drizzle-orm/planetscale-serverless";
 import { users } from "@/db/schema";
 import { hashPassword } from "@/utils/password"; // You need to implement a password hashing function
 
-export default async function signUpUser(userData: any) {
+export default async function signUpUser(userData: inputUser) {
   const conn = connect(config);
   const db = drizzle(conn);
 

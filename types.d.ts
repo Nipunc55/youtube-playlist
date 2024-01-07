@@ -22,6 +22,11 @@ type user = {
   user_id: number | null;
   username: string;
   email: string;
-  password: string;
+
   passwordHash: string;
+};
+type inputUser = {
+  username: string;
+  email: string;
+  password: string;
 };
