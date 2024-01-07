@@ -45,7 +45,7 @@ const CategoryArray = () => {
         const screenWidth = window.innerWidth;
         setLimits((pre) => ({
           ...pre,
-          minX: (-6000 * data.data.length) / screenWidth,
+          minX: (-4500 * data.data.length) / screenWidth,
         }));
       } catch (error) {
         console.log("Error fetching categories:", error);
