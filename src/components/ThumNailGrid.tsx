@@ -11,8 +11,8 @@ interface ThumNailGridProps {
 // { categoryId }: ThumNailGridProps
 const ThumNailGrid = ({ reload }: { reload: boolean }) => {
   const [loaded, setLoading] = React.useState(false);
-  const { categoryList } = useStore();
-  const { selectedCategoryId } = useStore();
+  const { categoryList, isAuthenticated, selectedCategoryId } = useStore();
+
   const [videos, setVideos] = React.useState<videos[] | null | undefined>();
   const [thumbnails, setThumbnails] = React.useState<any | null | undefined>();
 
@@ -105,7 +105,9 @@ const ThumNailGrid = ({ reload }: { reload: boolean }) => {
             />
           </div>
         ))}
-      <VideoForm onSubmit={handleSubmit} categories={categoryList} />
+      {isAuthenticated && (
+        <VideoForm onSubmit={handleSubmit} categories={categoryList} />
+      )}
     </>
   );
 };
