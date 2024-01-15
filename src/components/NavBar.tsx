@@ -10,9 +10,11 @@ const Navbar = () => {
   const router = useRouter();
   React.useEffect(() => {
     const token = localStorage.getItem("token");
+
     if (token)
       useStore.setState((prev) => ({ ...prev, isAuthenticated: true }));
   }, []);
+
   const handleLogin = () => {
     // Implement your login logic here
     // setAuthenticated(true);
@@ -26,6 +28,8 @@ const Navbar = () => {
   };
 
   const handleLogout = () => {
+    console.log("handleLogout");
+
     // Implement your logout logic here
     // setAuthenticated(false);
     localStorage.removeItem("token");
@@ -45,7 +49,7 @@ const Navbar = () => {
 
           <div className="flex space-x-4">
             {isAuthenticated ? (
-              <button className="text-white" onClick={handleLogout}>
+              <button className="text-white" onClick={() => handleLogout()}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"

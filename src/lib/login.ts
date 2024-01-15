@@ -14,6 +14,7 @@ export default async function loginUser(credentials: any) {
     // Find the user based on the provided email
     const user: user[] = await db
       .select({
+        user_id: users.userId,
         username: users.username,
         email: users.email,
         passwordHash: users.passwordHash,
@@ -26,15 +27,15 @@ export default async function loginUser(credentials: any) {
     //   .findFirst();
 
     if (user.length > 0) {
-      const { username, email } = user[0];
+      const { user_id, username, email } = user[0];
       const authentication = await comparePassword(
         credentials.password,
         user[0].passwordHash
       );
 
       if (authentication) {
-        const token = genareteToken({ username, email });
-        return { authentication, username, email, token };
+        const token = genareteToken({ user_id, username, email });
+        return { authentication, user_id, username, email, token };
       }
       return { status: false, message: "invalid credentials" };
     } else {

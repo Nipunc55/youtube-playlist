@@ -5,6 +5,7 @@ type videos = {
   category_id: number | null;
   likes: number | null;
   category: string;
+  // hasLiked: number | null;
 };
 type category = {
   category: string;
@@ -19,7 +20,7 @@ type categoryName = {
   category: string;
 };
 type user = {
-  // user_id: number | null;
+  user_id: number | null;
   username: string;
   email: string;
 
@@ -31,6 +32,12 @@ type inputUser = {
   password: string;
 };
 type tokenParams = {
+  user_id: number | null;
+  username: string;
+  email: string;
+};
+type authData = {
+  user_id: number | null;
   username: string;
   email: string;
 };

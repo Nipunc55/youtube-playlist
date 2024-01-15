@@ -6,9 +6,11 @@ export const useStore = create<{
   categoryList: object[];
   categoryRefresh: Boolean;
   isAuthenticated: Boolean;
+  userData: authData;
 }>((set) => ({
   selectedCategoryId: 1,
   categoryList: [],
   categoryRefresh: false,
   isAuthenticated: false,
+  userData: { user_id: null, username: "", email: "" },
 }));

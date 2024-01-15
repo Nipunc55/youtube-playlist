@@ -43,10 +43,20 @@ export default function LoginForm() {
         console.log(login);
 
         if (!login?.error) {
-          const { email, token, username } = login?.data;
+          const { user_id, email, token, username } = login?.data;
+          console.log(login?.data);
+
           console.log("Successfully logged in!");
           localStorage.setItem("token", token);
-          useStore.setState((prev) => ({ ...prev, isAuthenticated: true }));
+          useStore.setState((prev) => ({
+            ...prev,
+            isAuthenticated: true,
+            userData: {
+              user_id,
+              email,
+              username,
+            },
+          }));
         } else {
           console.log(login);
         }
