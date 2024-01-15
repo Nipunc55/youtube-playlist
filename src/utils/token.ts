@@ -9,7 +9,7 @@ export function validateToken(token: string): { valid: boolean; data?: any } {
     const decoded = verify(token, secretKey);
     return { valid: true, data: decoded };
   } catch (error) {
-    console.error("Error validating token:", error);
+    // console.error("Error validating token:", error);
     return { valid: false };
   }
 }

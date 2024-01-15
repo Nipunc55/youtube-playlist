@@ -17,8 +17,8 @@ export default async function getAllVideos(
   try {
     let user_id = null;
 
-    if (token) {
-      user_id = validateToken(token).data.user_id;
+    if (token !== "null") {
+      user_id = validateToken(token || "").data.user_id;
     }
 
     // results = await db
@@ -33,7 +33,7 @@ export default async function getAllVideos(
     //   .innerJoin(category, eq(videos.categoryId, category.id))
     //   .leftJoin(likes, eq(likes.videoId, videos.id))
     //   .groupBy(videos.url, videos.categoryId, category.category);
-    if (user_id) {
+    if (user_id !== null) {
       results = await db
         .select({
           url: videos.url,
