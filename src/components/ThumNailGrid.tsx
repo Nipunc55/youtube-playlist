@@ -136,7 +136,7 @@ const ThumNailGrid = ({ reload }: { reload: boolean }) => {
       alert(token);
       alert(result.data?.message);
       // settest({ ...result.data });
-      // setLoading(false);
+      setLoading(false);
       if (result.data.status == 400) {
         alert("server eror!");
       }
