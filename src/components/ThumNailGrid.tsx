@@ -132,6 +132,8 @@ const ThumNailGrid = ({ reload }: { reload: boolean }) => {
       }
 
       const result = await response.json();
+
+      alert(token);
       alert(result.data?.message);
       // settest({ ...result.data });
       // setLoading(false);
