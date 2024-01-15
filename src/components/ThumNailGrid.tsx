@@ -132,7 +132,7 @@ const ThumNailGrid = ({ reload }: { reload: boolean }) => {
       }
 
       const result = await response.json();
-      alert(result.data);
+      alert(result.data?.message);
       // settest({ ...result.data });
       // setLoading(false);
       if (result.data.status == 400) {
@@ -140,7 +140,7 @@ const ThumNailGrid = ({ reload }: { reload: boolean }) => {
       }
     } catch (error) {
       console.error("Error adding video:", error);
-      alert("server eror!");
+      alert(error);
     }
   };
   return (
