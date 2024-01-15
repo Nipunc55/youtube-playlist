@@ -9,14 +9,14 @@ export function validateToken(token: string): { valid: boolean; data?: any } {
     const decoded = verify(token, secretKey);
     return { valid: true, data: decoded };
   } catch (error) {
-    // console.error("Error validating token:", error);
+    console.error("Error validating token:", error);
     return { valid: false };
   }
 }
 
 export function genareteToken({ user_id, username, email }: tokenParams) {
   const token = sign({ user_id, username, email }, secretKey, {
-    expiresIn: "1M", // Token expiration time (optional)
+    expiresIn: "30d", // Token expiration time (optional)
   });
   return token;
 }

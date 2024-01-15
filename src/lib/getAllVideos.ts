@@ -18,7 +18,7 @@ export default async function getAllVideos(
     let user_id = null;
 
     if (token !== "null") {
-      user_id = validateToken(token || "").data.user_id;
+      user_id = validateToken(token || "")?.data?.user_id;
     }
 
     // results = await db
