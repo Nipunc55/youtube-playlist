@@ -29,7 +29,7 @@ export default async function addLike(
 
     return { message: "success full" };
   } catch (error) {
-    return { message: "server error" };
+    return { message: `${error}` };
     // console.error("Error adding like:", error);
     // throw error;
   }
