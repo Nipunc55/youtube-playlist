@@ -12,6 +12,7 @@ interface ThumNailGridProps {
 // { categoryId }: ThumNailGridProps
 const ThumNailGrid = ({ reload }: { reload: boolean }) => {
   const [loaded, setLoading] = React.useState(false);
+  const [test, settest] = React.useState();
   const { categoryList, isAuthenticated, selectedCategoryId, userData } =
     useStore();
 
@@ -129,10 +130,11 @@ const ThumNailGrid = ({ reload }: { reload: boolean }) => {
         alert("server eror!");
         throw new Error("Failed to add video");
       }
-      setLoading(false);
 
       const result = await response.json();
-
+      alert(result.data);
+      // settest({ ...result.data });
+      // setLoading(false);
       if (result.data.status == 400) {
         alert("server eror!");
       }
@@ -226,7 +228,7 @@ const ThumNailGrid = ({ reload }: { reload: boolean }) => {
       {loaded && (
         <div className="absolute inset-0 opacity-0 bg-black bg-opacity-50 opacity-100 transition-opacity duration-300 rounded-md">
           <p className="text-gray-300 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
-            Loading....
+            {test} Loading....
           </p>
         </div>
       )}

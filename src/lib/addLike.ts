@@ -14,9 +14,9 @@ export default async function addLike(
   const db = drizzle(conn);
 
   try {
-    if (!token) return null;
+    if (!token) return "no token";
     const { user_id } = validateToken(token).data;
-    if (!user_id) return null;
+    if (!user_id) return "no user id";
 
     // If not, insert the like
     const result = await db
@@ -27,7 +27,7 @@ export default async function addLike(
       })
       .execute();
 
-    return result || null;
+    return result;
   } catch (error) {
     return error;
     // console.error("Error adding like:", error);
