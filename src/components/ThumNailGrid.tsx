@@ -133,12 +133,12 @@ const ThumNailGrid = ({ reload }: { reload: boolean }) => {
 
       const result = await response.json();
 
-      console.log(result.data);
       if (result.data.status == 400) {
         alert("server eror!");
       }
     } catch (error) {
       console.error("Error adding video:", error);
+      alert("server eror!");
     }
   };
   return (

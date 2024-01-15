@@ -29,7 +29,8 @@ export default async function addLike(
 
     return result || null;
   } catch (error) {
-    console.error("Error adding like:", error);
-    throw error;
+    return error;
+    // console.error("Error adding like:", error);
+    // throw error;
   }
 }
