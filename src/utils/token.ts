@@ -15,8 +15,9 @@ export function validateToken(token: string): { valid: boolean; data?: any } {
 }
 
 export function genareteToken({ user_id, username, email }: tokenParams) {
-  const token = sign({ user_id, username, email }, secretKey, {
-    expiresIn: "30h", // Token expiration time (optional)
-  });
+  const token = sign({ user_id, username, email }, secretKey);
   return token;
 }
+// // {
+//   expiresIn: "30h", // Token expiration time (optional)
+// }
