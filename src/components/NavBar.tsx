@@ -10,7 +10,8 @@ const Navbar = () => {
   const router = useRouter();
   React.useEffect(() => {
     const token = localStorage.getItem("token");
-    console.log(token);
+    const parsedToken = token ? JSON.parse(token) : null;
+    alert(parsedToken);
 
     if (token)
       useStore.setState((prev) => ({ ...prev, isAuthenticated: true }));

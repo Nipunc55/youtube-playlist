@@ -7,8 +7,8 @@ const secretKey = "your-secret-key"; // Replace with a strong secret key, and ke
 export function validateToken(token: string): { valid: boolean; data?: any } {
   try {
     console.log("-------- jwt token : ", token);
-
-    const decoded = verify(token, secretKey);
+    const parsedToken = token ? JSON.parse(token) : null;
+    const decoded = verify(parsedToken, secretKey);
     return { valid: true, data: decoded };
   } catch (error) {
     console.error("Error validating token:", error);
