@@ -21,7 +21,7 @@ export function genareteToken({ user_id, username }: tokenParams) {
     const token = sign({ user_id, username }, secretKey);
     return token;
   } catch (error) {
-    console.log(error);
+    console.log("---------genarate error", error);
 
     return null;
   }
