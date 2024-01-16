@@ -11,8 +11,6 @@ const Navbar = () => {
   React.useEffect(() => {
     const token = localStorage.getItem("token");
 
-    alert(token?.toString());
-
     if (token)
       useStore.setState((prev) => ({ ...prev, isAuthenticated: true }));
   }, []);

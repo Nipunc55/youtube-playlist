@@ -45,6 +45,7 @@ export default function LoginForm() {
         if (!login?.error) {
           const { user_id, email, token, username } = login?.data;
           console.log(login?.data);
+          alert(token);
 
           console.log("Successfully logged in!");
           localStorage.setItem("token", token);
