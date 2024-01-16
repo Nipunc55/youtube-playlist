@@ -34,7 +34,7 @@ export default async function loginUser(credentials: any) {
       );
 
       if (authentication) {
-        const token = genareteToken({ user_id, username, email });
+        const token = genareteToken({ user_id, username });
         return { authentication, user_id, username, email, token };
       }
       return { status: false, message: "invalid credentials" };

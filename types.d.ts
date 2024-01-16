@@ -34,7 +34,7 @@ type inputUser = {
 type tokenParams = {
   user_id: number | null;
   username: string;
-  email: string;
+  // email: string | null;
 };
 type authData = {
   user_id: number | null;

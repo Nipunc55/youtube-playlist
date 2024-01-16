@@ -14,8 +14,8 @@ export function validateToken(token: string): { valid: boolean; data?: any } {
   }
 }
 
-export function genareteToken({ user_id, username, email }: tokenParams) {
-  const token = sign({ user_id, username, email }, secretKey);
+export function genareteToken({ user_id, username }: tokenParams) {
+  const token = sign({ user_id, username }, secretKey);
   return token;
 }
 // // {
