@@ -34,12 +34,16 @@ export default async function loginUser(credentials: any) {
       );
 
       if (authentication) {
-        console.log("--------login user_id: ", user_id, username);
-
         const token = genareteToken({ user_id, username });
-        console.log("--- genarated token : ", token);
 
-        return { authentication, user_id, username, email, token };
+        return {
+          status: true,
+          authentication,
+          user_id,
+          username,
+          email,
+          token,
+        };
       }
       return { status: false, message: "invalid credentials" };
     } else {

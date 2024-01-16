@@ -23,10 +23,13 @@ export async function POST(request: NextRequest) {
 
       response.data = login;
     } else {
-      response = { error: true, data: { message: "invalid credential" } };
+      response = {
+        error: true,
+        data: { status: false, message: "invalid credential" },
+      };
     }
   } catch (error: any) {
-    response = { error: true, data: error };
+    response = { error: true, data: { status: false, message: `${error}` } };
     console.log(error);
   }
 

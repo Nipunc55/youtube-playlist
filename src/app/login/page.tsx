@@ -42,11 +42,11 @@ export default function LoginForm() {
         const login = await response.json();
         console.log(login);
 
-        if (!login?.error) {
+        if (!login?.data.status) {
           const { user_id, email, token, username } = login?.data;
-          alert(JSON.stringify(token));
+
           console.log("Successfully logged in!");
-          localStorage.setItem("token", JSON.stringify(token));
+          localStorage.setItem("token", token);
           useStore.setState((prev) => ({
             ...prev,
             isAuthenticated: true,
@@ -57,6 +57,7 @@ export default function LoginForm() {
             },
           }));
         } else {
+          alert(login?.data.message);
           console.log(login);
         }
       } else {
