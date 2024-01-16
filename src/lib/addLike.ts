@@ -16,9 +16,9 @@ export default async function addLike(
   try {
     console.log("jwt token in add like lib: ", token);
 
-    if (!token) return { message: "token needed" };
+    if (!token) return { status: false, message: "token needed" };
     const { user_id } = validateToken(token)?.data;
-    if (!user_id) return { message: "no user id" };
+    if (!user_id) return { status: false, message: "no user id" };
 
     // If not, insert the like
     const result = await db
@@ -29,9 +29,9 @@ export default async function addLike(
       })
       .execute();
 
-    return { message: "success full" };
+    return { status: true, message: "success full" };
   } catch (error) {
-    return { message: `${error}` };
+    return { status: false, message: `${error}` };
     // console.error("Error adding like:", error);
     // throw error;
   }

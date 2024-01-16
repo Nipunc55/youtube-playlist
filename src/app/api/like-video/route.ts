@@ -12,7 +12,10 @@ export async function POST(request: Request) {
 
     response.data = result;
   } catch (error: any) {
-    response = { error: true, data: error };
+    response = {
+      error: true,
+      data: { status: false, message: `${error?.message}` },
+    };
   }
 
   return NextResponse.json(response);
