@@ -42,7 +42,7 @@ export default function LoginForm() {
         const login = await response.json();
         console.log(login);
 
-        if (!login?.data.status) {
+        if (login?.data.status) {
           const { user_id, email, token, username } = login?.data;
 
           console.log("Successfully logged in!");
@@ -57,7 +57,7 @@ export default function LoginForm() {
             },
           }));
         } else {
-          alert(login?.data.message);
+          alert(login?.data?.message || "error login");
           console.log(login);
         }
       } else {
