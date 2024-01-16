@@ -14,8 +14,10 @@ export default async function addLike(
   const db = drizzle(conn);
 
   try {
+    console.log("jwt token in add like lib: ", token);
+
     if (!token) return { message: "token needed" };
-    const { user_id } = validateToken(token).data;
+    const { user_id } = validateToken(token)?.data;
     if (!user_id) return { message: "no user id" };
 
     // If not, insert the like

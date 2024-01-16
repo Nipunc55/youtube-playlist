@@ -6,6 +6,8 @@ const secretKey = "your-secret-key"; // Replace with a strong secret key, and ke
 // Function to validate a JWT token
 export function validateToken(token: string): { valid: boolean; data?: any } {
   try {
+    console.log("-------- jwt token : ", token);
+
     const decoded = verify(token, secretKey);
     return { valid: true, data: decoded };
   } catch (error) {
