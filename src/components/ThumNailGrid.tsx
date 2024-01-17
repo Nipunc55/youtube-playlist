@@ -15,6 +15,7 @@ const ThumNailGrid = ({ reload }: { reload: boolean }) => {
   const [loaded, setLoading] = useState(true);
   const [pageNumber, setPageNum] = useState(0);
   const [pageSize, setPageSize] = useState(9);
+  const [refresh, setRefreshRoute] = useState(false);
 
   const { categoryList, isAuthenticated, selectedCategoryId, userData } =
     useStore();
@@ -49,7 +50,7 @@ const ThumNailGrid = ({ reload }: { reload: boolean }) => {
     };
 
     fetchData();
-  }, [selectedCategoryId, pageNumber]);
+  }, [selectedCategoryId, refresh, pageNumber]);
   React.useEffect(() => {
     const thumbnails: any =
       videos &&
@@ -93,11 +94,11 @@ const ThumNailGrid = ({ reload }: { reload: boolean }) => {
         setLoading(false);
         throw new Error("Failed to add video");
       }
-      setLoading(false);
+      // setLoading(false);
 
       const result = await response.json();
 
-      console.log(result.data);
+      setRefreshRoute((pre) => !pre);
       if (result.data.status == 400) {
         alert("video already exits!");
       }
@@ -141,7 +142,8 @@ const ThumNailGrid = ({ reload }: { reload: boolean }) => {
       }
 
       const result = await response.json();
-      setLoading(false);
+      setRefreshRoute((pre) => !pre);
+      // setLoading(false);
 
       if (result.data.status == 400) {
         alert("server eror!");
@@ -149,6 +151,7 @@ const ThumNailGrid = ({ reload }: { reload: boolean }) => {
     } catch (error) {
       console.error("Error adding video:", error);
       alert(error);
+      setLoading(false);
     }
   };
   return (
@@ -234,13 +237,14 @@ const ThumNailGrid = ({ reload }: { reload: boolean }) => {
       {isAuthenticated && (
         <VideoForm onSubmit={handleSubmit} categories={categoryList} />
       )}
-      {thumbnails && thumbnails.length > 0 && (
-        <Pagination
-          pageNumber={pageNumber}
-          pageSize={pageSize}
-          setPageNum={setPageNum}
-        />
-      )}
+
+      <Pagination
+        thumbnails={thumbnails}
+        pageNumber={pageNumber}
+        pageSize={pageSize}
+        setPageNum={setPageNum}
+      />
+
       {loaded && (
         <div className="absolute h-200  inset-0 opacity-0 bg-black bg-opacity-50 opacity-100 transition-opacity duration-300 rounded-md">
           <p className="text-gray-300 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
