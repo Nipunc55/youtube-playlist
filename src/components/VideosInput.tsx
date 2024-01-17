@@ -19,7 +19,11 @@ const VideoForm: React.FC<VideoFormProps> = ({ onSubmit, categories }) => {
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
-    setFormData((prevData: any) => ({ ...prevData, [name]: value }));
+    let updatedValue = value;
+    if (name == "url") {
+      updatedValue = value.split("&")[0];
+    }
+    setFormData((prevData: any) => ({ ...prevData, [name]: updatedValue }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
