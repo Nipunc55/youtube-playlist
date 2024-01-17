@@ -28,6 +28,12 @@ const VideoForm: React.FC<VideoFormProps> = ({ onSubmit, categories }) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!formData.url.trim()) {
+      // Display an error message or perform some action
+      console.error("URL cannot be empty");
+      alert("URL cannot be empty");
+      return;
+    }
     onSubmit(formData);
   };
   useEffect(() => {

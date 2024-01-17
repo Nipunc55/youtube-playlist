@@ -10,8 +10,14 @@ export async function GET(request: NextRequest) {
   try {
     const token = request.headers.get("Authorization") || null;
     const id: number = Number(request.nextUrl.searchParams.get("id") || 0);
+    const pageNumber: number = Number(
+      request.nextUrl.searchParams.get("pageNumber") || 0
+    );
+    const pageSize: number = Number(
+      request.nextUrl.searchParams.get("pageSize") || 9
+    );
 
-    const videos = await getAllVideos(id, token);
+    const videos = await getAllVideos(id, token, pageNumber, pageSize);
     response.data = videos;
   } catch (error: any) {
     response = { error: true, data: error };

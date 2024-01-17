@@ -9,7 +9,9 @@ import { validateToken } from "@/utils/token";
 
 export default async function getAllVideos(
   categoryId: number,
-  token: string | null
+  token: string | null,
+  pageNumber: number,
+  pageSize: number
 ): Promise<videos[] | any> {
   const conn = connect(config);
   const db = drizzle(conn);
@@ -55,7 +57,9 @@ export default async function getAllVideos(
         .innerJoin(category, eq(videos.categoryId, category.id))
         .leftJoin(likes, eq(likes.videoId, videos.id))
         .groupBy(videos.url, videos.categoryId, category.category)
-        .orderBy(desc(count(likes.likeId)));
+        .orderBy(desc(count(likes.likeId)))
+        .offset(pageNumber * pageSize) // Set the offset based on the page number and page size
+        .limit(pageSize);
     } else {
       results = await db
         .select({
@@ -70,7 +74,9 @@ export default async function getAllVideos(
         .innerJoin(category, eq(videos.categoryId, category.id))
         .leftJoin(likes, eq(likes.videoId, videos.id))
         .groupBy(videos.url, videos.categoryId, category.category)
-        .orderBy(desc(count(likes.likeId)));
+        .orderBy(desc(count(likes.likeId)))
+        .offset(pageNumber * pageSize) // Set the offset based on the page number and page size
+        .limit(pageSize);
     }
 
     // results = await db

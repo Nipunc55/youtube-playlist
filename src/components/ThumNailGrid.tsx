@@ -3,16 +3,19 @@
 // components/VideoGrid.js
 "use client";
 import { useStore } from "@/store/store";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import VideoForm from "./VideosInput";
 import OneLogin from "next-auth/providers/onelogin";
+import Pagination from "./Pagination";
 interface ThumNailGridProps {
   categoryId: number;
 }
 // { categoryId }: ThumNailGridProps
 const ThumNailGrid = ({ reload }: { reload: boolean }) => {
-  const [loaded, setLoading] = React.useState(false);
-  const [test, settest] = React.useState();
+  const [loaded, setLoading] = useState(true);
+  const [pageNumber, setPageNum] = useState(0);
+  const [pageSize, setPageSize] = useState(9);
+
   const { categoryList, isAuthenticated, selectedCategoryId, userData } =
     useStore();
 
@@ -22,6 +25,7 @@ const ThumNailGrid = ({ reload }: { reload: boolean }) => {
   React.useEffect(() => {
     const fetchData = async () => {
       try {
+        setLoading(true);
         const token = localStorage.getItem("token"); // replace "your_token_key" with the actual key
 
         // Build the headers object with the token
@@ -31,19 +35,21 @@ const ThumNailGrid = ({ reload }: { reload: boolean }) => {
         };
 
         const response = await fetch(
-          `/api/videos?id=${selectedCategoryId}&user_id=${userData.user_id}`,
+          `/api/videos?id=${selectedCategoryId}&user_id=${userData.user_id}&pageNumber=${pageNumber}`,
           { headers }
         );
         const data = await response.json();
 
         setVideos(data.data);
+        setLoading(false);
       } catch (error) {
         console.log("Error fetching categories:", error);
+        setLoading(false);
       }
     };
 
     fetchData();
-  }, [selectedCategoryId, loaded]);
+  }, [selectedCategoryId, pageNumber]);
   React.useEffect(() => {
     const thumbnails: any =
       videos &&
@@ -57,6 +63,9 @@ const ThumNailGrid = ({ reload }: { reload: boolean }) => {
       }));
     setThumbnails(thumbnails);
   }, [videos]);
+  React.useEffect(() => {
+    setPageNum(0);
+  }, [selectedCategoryId]);
   function extractYouTubeVideoId(url: string) {
     const regex =
       /(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
@@ -221,13 +230,21 @@ const ThumNailGrid = ({ reload }: { reload: boolean }) => {
             )}
           </div>
         ))}
+
       {isAuthenticated && (
         <VideoForm onSubmit={handleSubmit} categories={categoryList} />
       )}
+      {thumbnails && thumbnails.length > 0 && (
+        <Pagination
+          pageNumber={pageNumber}
+          pageSize={pageSize}
+          setPageNum={setPageNum}
+        />
+      )}
       {loaded && (
-        <div className="absolute inset-0 opacity-0 bg-black bg-opacity-50 opacity-100 transition-opacity duration-300 rounded-md">
+        <div className="absolute h-200  inset-0 opacity-0 bg-black bg-opacity-50 opacity-100 transition-opacity duration-300 rounded-md">
           <p className="text-gray-300 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
-            {test} Loading....
+            Loading....
           </p>
         </div>
       )}
