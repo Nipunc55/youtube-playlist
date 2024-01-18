@@ -7,6 +7,7 @@ import React, { useEffect, useState } from "react";
 import VideoForm from "./VideosInput";
 import OneLogin from "next-auth/providers/onelogin";
 import Pagination from "./Pagination";
+import { log } from "console";
 interface ThumNailGridProps {
   categoryId: number;
 }
@@ -65,6 +66,8 @@ const ThumNailGrid = ({ reload }: { reload: boolean }) => {
     setThumbnails(thumbnails);
   }, [videos]);
   React.useEffect(() => {
+    console.log(userData);
+
     setPageNum(0);
   }, [selectedCategoryId]);
   function extractYouTubeVideoId(url: string) {
@@ -82,10 +85,19 @@ const ThumNailGrid = ({ reload }: { reload: boolean }) => {
   const handleAddVideo = async (videoData: video) => {
     setLoading(true);
     try {
+      const token = localStorage.getItem("token"); // replace "your_token_key" with the actual key
+
+      // Build the headers object with the token
+      const headers = {
+        Authorization: `${token}`,
+        // Add other headers if needed
+      };
+
       const response = await fetch("/api/add-video", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          ...headers,
         },
         body: JSON.stringify(videoData),
       });

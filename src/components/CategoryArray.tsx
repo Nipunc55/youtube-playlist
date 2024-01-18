@@ -60,7 +60,7 @@ const CategoryArray = () => {
   return (
     <div
       className="fixed px-3 w-full my-1 "
-      style={{ top: "3.8rem", zIndex: "100" }}
+      style={{ top: "3.8rem", zIndex: "99" }}
       {...bind()}
     >
       <animated.div

@@ -102,6 +102,7 @@ export const videos = mysqlTable(
     categoryId: int("category_id"),
     likes: int("likes"),
     description: varchar("description", { length: 255 }),
+    author_id: varchar("author_id", { length: 15 }),
   },
   (table) => {
     return {

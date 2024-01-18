@@ -43,6 +43,7 @@ export default async function getAllVideos(
           category_id: videos.categoryId,
           category: category.category,
           id: videos.id,
+          author: videos.author_id,
           hasLiked: exists(
             db
               .select()
