@@ -71,8 +71,9 @@ export default function RegisterForm() {
         headers,
       });
       const data = await response.json();
-
-      setStatData(data.data[0]);
+      const stat = data.data[0];
+      setStatData(stat);
+      toast.success(`wow! ${stat.totalLikes} likes!  `);
 
       setLoading(false);
     } catch (error) {
@@ -81,8 +82,10 @@ export default function RegisterForm() {
     }
   };
   React.useEffect(() => {
-    fetchData();
     getStats();
+  }, [refresh]);
+  React.useEffect(() => {
+    fetchData();
   }, [refresh, pageNumber]);
   const openYouTubeLink = (video: any) => {
     // Check if the video object has a valid YouTube link
@@ -184,6 +187,7 @@ export default function RegisterForm() {
                 pageSize={pageSize}
                 setPageNum={setPageNum}
               />
+              <Toaster />
             </div>
           </div>
         </div>
