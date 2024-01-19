@@ -10,10 +10,11 @@ import Pagination from "./Pagination";
 import toast, { Toaster } from "react-hot-toast";
 import VideoCard from "./videoCards/videoCard";
 import Loading from "./videoCards/loading";
+import extractYouTubeVideoId from "@/utils/thumbNailExtracter";
 interface ThumNailGridProps {
   categoryId: number;
 }
-// { categoryId }: ThumNailGridProps
+
 const ThumNailGrid = ({ reload }: { reload: boolean }) => {
   const [loaded, setLoading] = useState(true);
   const [pageNumber, setPageNum] = useState(0);
@@ -70,15 +71,7 @@ const ThumNailGrid = ({ reload }: { reload: boolean }) => {
   React.useEffect(() => {
     setPageNum(0);
   }, [selectedCategoryId]);
-  function extractYouTubeVideoId(url: string) {
-    const regex =
-      /(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
-    const match = url.match(regex);
-    if (match && match[1]) {
-      return `https://img.youtube.com/vi/${match[1]}/mqdefault.jpg`;
-    }
-    return null;
-  }
+
   const handleSubmit = (data: video) => {
     handleAddVideo(data);
   };

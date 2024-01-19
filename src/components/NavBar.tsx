@@ -97,9 +97,9 @@ const Navbar = () => {
               >
                 {/* ^--- Added sm:hidden to hide on small screens (mobile) */}
                 <ul className="p-2">
-                  {/* <li className="hover:bg-gray-200 py-2 px-4">
+                  <li className="hover:bg-gray-200 py-2 px-4">
                     <a href="/profile">Profile</a>
-                  </li> */}
+                  </li>
                   <li className="hover:bg-gray-200 py-2 px-4">
                     {isAuthenticated ? (
                       <button
