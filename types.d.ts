@@ -1,5 +1,7 @@
 /** @format */
-
+type thumbnail = {
+  id: number;
+};
 type videos = {
   url: string;
   category_id: number | null;

@@ -23,12 +23,25 @@ export default async function RegisterForm() {
     }
   }
   return (
-    <div className="flex flex-col items-center justify-center px-6 py-20 mx-auto md:h-screen lg:py-0">
-      <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
-        <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-          <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-            Sign up a new your account
-          </h1>
+    <div className="flex flex-col items-center justify-center h-screen p-2 pt-16 ">
+      <div className=" w-full h-full  ">
+        <div className="grid grid-cols-1 h-full sm:grid-cols-2 gap-4">
+          <div className="h-full col-span-1 bg-green-100 rounded shadow-md">
+            <div className="p-4   ">
+              <p>Column 1</p>
+            </div>
+          </div>
+          <div className="h-full col-span-1 bg-green-600 rounded shadow-md">
+            <div className="p-4 ">
+              <p>Column 2</p>
+            </div>
+          </div>
+
+          <div className="col-span-2 bg-yellow-100 h-full rounded shadow-md ">
+            <div className="p-4 ">
+              <p>Column 3</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
