@@ -92,7 +92,7 @@ export default function LoginForm() {
             </svg>
           </button>
           <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-            Sign in to your account
+            Log in to your account
           </h1>
           <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
             <div>
@@ -148,7 +148,7 @@ export default function LoginForm() {
               type="submit"
               className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 bg-blue-900 bg-opacity-50"
             >
-              Sign in
+              Log in
             </button>
             <p className="text-sm font-light text-gray-900 dark:text-black-900">
               Don’t have an account yet?{" "}
@@ -156,7 +156,7 @@ export default function LoginForm() {
                 href="/signup"
                 className="font-medium text-primary-600 hover:underline dark:text-primary-500 "
               >
-                Sign up
+                Register
               </a>
             </p>
           </form>
