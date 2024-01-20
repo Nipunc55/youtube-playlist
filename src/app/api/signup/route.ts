@@ -11,16 +11,15 @@ export async function POST(request: NextRequest) {
 
   try {
     const body = await request.json();
-    const { userData }: { userData: inputUser } = body || {
-      userData: { username: "", email: "", password: "" },
-    };
+
+    const userData: inputUser = body;
 
     const register = await signUp(userData);
-    console.log(register);
+
     if (register) {
       response.data = register;
     }
-    response = { error: true, data: { message: "invalid credential" } };
+    // response = { error: true, data: { message: "invalid credential" } };
   } catch (error: any) {
     response = { error: true, data: error };
     console.log(error);

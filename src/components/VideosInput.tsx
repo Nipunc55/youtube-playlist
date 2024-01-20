@@ -1,7 +1,7 @@
 // components/VideoForm.tsx
 import { useState, useEffect } from "react";
 import { useStore } from "@/store/store";
-
+import toast, { Toaster } from "react-hot-toast";
 interface VideoFormProps {
   onSubmit: (data: video) => void;
   categories: object[];
@@ -31,10 +31,11 @@ const VideoForm: React.FC<VideoFormProps> = ({ onSubmit, categories }) => {
     if (!formData.url.trim()) {
       // Display an error message or perform some action
       console.error("URL cannot be empty");
-      alert("URL cannot be empty");
+      toast.error("URL cannot be empty");
       return;
     }
     onSubmit(formData);
+    formData.url = "";
   };
   useEffect(() => {
     setFormData((prevData: any) => ({

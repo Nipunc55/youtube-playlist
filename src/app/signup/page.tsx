@@ -1,27 +1,83 @@
 // components/LoginForm.js
 
-import signUpUser from "@/lib/signUp";
-import { redirect } from "next/navigation";
+"use client";
+import { useRouter } from "next/navigation";
+import { useStore } from "@/store/store";
+import { useState, useEffect } from "react";
+import toast, { Toaster } from "react-hot-toast";
 
-export default async function RegisterForm() {
-  async function handleClick(formData: FormData) {
-    "use server";
+export default function RegisterForm() {
+  const [formData, setFormData] = useState(new FormData());
+  const router = useRouter();
+  const { isAuthenticated } = useStore();
+  // async function handleClick(formData: FormData) {
+  //   // Filter the array to include only 'email' and 'password' entries
+  //   const credentials: inputUser = {
+  //     username: formData.get("username")?.toString() || "",
+  //     email: formData.get("email")?.toString() || "",
+  //     password: formData.get("password")?.toString() || "",
+  //   };
+  //   const register = await signUpUser(credentials);
+  //   console.log(register.status);
+  // }
+  const handleChange = (e: any) => {
+    const { name, value } = e.target;
+    formData.set(name, value);
+  };
 
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    handleClick(formData);
+  };
+  useEffect(() => {
+    if (isAuthenticated) router.push("/");
+  }, [isAuthenticated]);
+  const handleClick = async (formData: any) => {
     // Filter the array to include only 'email' and 'password' entries
-    const credentials: inputUser = {
-      username: formData.get("username")?.toString() || "",
-      email: formData.get("email")?.toString() || "",
-      password: formData.get("password")?.toString() || "",
+    const credentials = {
+      username: formData.get("username"),
+      email: formData.get("email"),
+      password: formData.get("password"),
     };
-    const register = await signUpUser(credentials);
-    if (register) {
-      console.log(register);
 
-      redirect("/");
-    } else {
-      console.log(register);
+    try {
+      const response = await fetch("/api/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(credentials),
+      });
+
+      if (response.ok) {
+        const login = await response.json();
+
+        if (login?.data.status) {
+          const { user_id, email, token, username } = login?.data;
+
+          localStorage.setItem("token", token);
+          useStore.setState((prev) => ({
+            ...prev,
+            isAuthenticated: true,
+            userData: {
+              user_id,
+              email,
+              username,
+            },
+          }));
+          toast.success(login?.data?.message);
+        } else {
+          toast.error(login?.data?.message);
+        }
+      } else {
+        console.log("Login failed.");
+        toast.error("register failed.");
+      }
+    } catch (error) {
+      console.error("Error during login:", error);
+      toast.error("server error.");
     }
-  }
+  };
   return (
     <div className="flex flex-col items-center justify-center px-6 py-20 mx-auto md:h-screen lg:py-0">
       <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
@@ -46,10 +102,10 @@ export default async function RegisterForm() {
             </svg>
           </button> */}
           <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-            Sign up a new your account
+            Register a new your account
           </h1>
 
-          <form className="space-y-4 md:space-y-6" action={handleClick}>
+          <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
             <div>
               <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                 Your name
@@ -58,6 +114,7 @@ export default async function RegisterForm() {
                 type="username"
                 name="username"
                 id="username"
+                onChange={handleChange}
                 className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="name"
               />
@@ -67,6 +124,7 @@ export default async function RegisterForm() {
                 Your email
               </label>
               <input
+                onChange={handleChange}
                 type="email"
                 name="email"
                 id="email"
@@ -79,6 +137,7 @@ export default async function RegisterForm() {
                 Password
               </label>
               <input
+                onChange={handleChange}
                 type="password"
                 name="password"
                 id="password"
@@ -114,18 +173,18 @@ export default async function RegisterForm() {
                   </label>
                 </div>
               </div>
-              <a
+              {/* <a
                 href="#"
                 className="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500"
               >
                 Forgot password?
-              </a>
+              </a> */}
             </div>
             <button
               type="submit"
               className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 bg-blue-900 bg-opacity-50"
             >
-              Sign up
+              Register
             </button>
             <p className="text-sm font-light text-gray-900 dark:text-black-900">
               Do you have an account ?{" "}
@@ -133,10 +192,11 @@ export default async function RegisterForm() {
                 href="/login"
                 className="font-medium text-primary-600 hover:underline dark:text-primary-500 "
               >
-                Sign in
+                Log in
               </a>
             </p>
           </form>
+          <Toaster />
         </div>
       </div>
     </div>

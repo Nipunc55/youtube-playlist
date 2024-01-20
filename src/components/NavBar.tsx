@@ -93,7 +93,7 @@ const Navbar = () => {
               // <div className="absolute lg:right-50 right-0  mt-6 w-40 bg-blue border rounded shadow-md ">
               <div
                 style={{ zIndex: "100" }}
-                className="absolute z-102 mt-6 right-6  w-40 bg-gray-900 bg-opacity-95 border rounded shadow-md "
+                className="absolute z-102 mt-6 right-6   bg-gray-900 bg-opacity-95 border rounded shadow-md "
               >
                 {/* ^--- Added sm:hidden to hide on small screens (mobile) */}
                 <ul className="p-2">
