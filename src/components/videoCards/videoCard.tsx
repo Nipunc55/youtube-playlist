@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
-
+import "./ribbon.css";
+import Badg from "./Badg";
 interface VideoCardProps {
   thumbnails: any;
   isAuthenticated: Boolean;
@@ -18,12 +19,13 @@ const VideoCard: React.FC<VideoCardProps> = ({
     <>
       {thumbnails &&
         thumbnails.length > 0 &&
-        thumbnails.map((video: any) => (
+        thumbnails.map((video: any, index: number) => (
           <div
             key={video.id}
             // className="bg-gray-100 rounded-md overflow-hidden transform transition-transform duration-300  cursor-pointer"
             className="relative group bg-gray-100 rounded-md overflow-hidden transform transition-transform duration-300 cursor-pointer"
           >
+            <Badg id={index} />
             <img
               src={video.thumbnail || ""}
               // alt={video.title}
