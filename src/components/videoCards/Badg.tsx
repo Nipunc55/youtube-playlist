@@ -6,6 +6,6 @@ interface BadgProps {
 }
 // Functional Component
 const Badg: React.FC<BadgProps> = ({ id }) => {
-  return <>{id == 0 && <div className="absolute ribbon-2">Recomonded</div>}</>;
+  return <>{id == 0 && <div className="absolute ribbon-2">Most Liked</div>}</>;
 };
 export default Badg;
