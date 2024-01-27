@@ -7,7 +7,7 @@ import Navbar from "../components/NavBar";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Tube Library",
+  title: "Playlist Master",
   description: "collection of best you tube videos",
 };
 
@@ -19,7 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Navbar />
+        <Navbar data={metadata} />
         {children}
       </body>
     </html>

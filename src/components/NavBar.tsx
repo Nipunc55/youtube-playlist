@@ -4,7 +4,8 @@ import React from "react";
 import Link from "next/link";
 import { useStore } from "@/store/store";
 import { useRouter } from "next/navigation";
-const Navbar = () => {
+import { Metadata } from "next";
+const Navbar = ({ data }: any) => {
   const [isDropdownOpen, setDropDown] = React.useState(false);
   const { isAuthenticated } = useStore();
   const router = useRouter();
@@ -48,7 +49,7 @@ const Navbar = () => {
       <div className=" ">
         <div className="flex items-center justify-between">
           <div className="text-white font-bold text-lg">
-            <a href="/">Youtube Library</a>
+            <a href="/">{data.title}</a>
           </div>
 
           <div className="flex space-x-4">
@@ -97,23 +98,31 @@ const Navbar = () => {
               >
                 {/* ^--- Added sm:hidden to hide on small screens (mobile) */}
                 <ul className="p-2">
-                  <li className="hover:bg-gray-200 py-2 px-4">
-                    <a href="/profile">Profile</a>
-                  </li>
-                  <li className="hover:bg-gray-200 py-2 px-4">
-                    {isAuthenticated ? (
-                      <button
-                        className="text-white"
-                        onClick={() => handleLogout()}
-                      >
-                        LogOut
-                      </button>
-                    ) : (
+                  {/* <li className="hover:bg-gray-200 py-2 px-4">
+                    
+                  </li> */}
+
+                  {isAuthenticated ? (
+                    <>
+                      <li className="hover:bg-gray-200 py-2 px-4">
+                        <a href="/profile">Profile</a>
+                      </li>
+                      <li className="hover:bg-gray-200 py-2 px-4">
+                        <button
+                          className="text-white"
+                          onClick={() => handleLogout()}
+                        >
+                          LogOut
+                        </button>
+                      </li>
+                    </>
+                  ) : (
+                    <li className="hover:bg-gray-200 py-2 px-4">
                       <button className="text-white" onClick={handleLogin}>
                         Login
                       </button>
-                    )}
-                  </li>
+                    </li>
+                  )}
                 </ul>
               </div>
             )}
