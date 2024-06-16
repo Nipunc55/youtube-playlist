@@ -43,6 +43,7 @@ const VideoForm: React.FC<VideoFormProps> = ({ onSubmit, categories }) => {
       categoryId: selectedCategoryId,
     }));
   }, [selectedCategoryId]);
+  console.log(selectedCategoryId);
 
   return (
     <div className="bg-white p-6 rounded-md shadow-md text-center text-gray-800">
@@ -64,11 +65,12 @@ const VideoForm: React.FC<VideoFormProps> = ({ onSubmit, categories }) => {
           className="border p-2 w-full m-1"
         >
           <option value="">Select a category</option>
-          {categories.map((category: any) => (
-            <option key={category?.id} value={category?.id}>
-              {category?.category}
-            </option>
-          ))}
+          {categories.length > 0 &&
+            categories?.map((category: any) => (
+              <option key={category?._id} value={category?._id}>
+                {category?.category}
+              </option>
+            ))}
         </select>
         <button
           type="submit"

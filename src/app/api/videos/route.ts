@@ -1,7 +1,6 @@
 /** @format */
 
 import { NextResponse, NextRequest } from "next/server";
-
 import getAllVideos from "@/lib/getAllVideos";
 
 export async function GET(request: NextRequest) {
@@ -9,7 +8,7 @@ export async function GET(request: NextRequest) {
 
   try {
     const token = request.headers.get("Authorization") || null;
-    const id: number = Number(request.nextUrl.searchParams.get("id") || 0);
+    const id = request.nextUrl.searchParams.get("id");
     const pageNumber: number = Number(
       request.nextUrl.searchParams.get("pageNumber") || 0
     );
@@ -17,12 +16,13 @@ export async function GET(request: NextRequest) {
       request.nextUrl.searchParams.get("pageSize") || 9
     );
 
-    const videos = await getAllVideos(id, token, pageNumber, pageSize);
+    const videos = await getAllVideos(token, pageNumber, pageSize);
     response.data = videos;
   } catch (error: any) {
-    response = { error: true, data: error };
+    response = { error: true, data: error.message };
   }
 
   return NextResponse.json(response);
 }
+
 export const dynamic = "force-dynamic";

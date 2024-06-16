@@ -2,10 +2,12 @@
 
 import { NextResponse, NextRequest } from "next/server";
 import loginUser from "@/lib/login";
+
 interface Credentials {
   email: string;
   password: string;
 }
+
 export async function POST(request: NextRequest) {
   let response = { error: false, data: {} };
 
@@ -19,17 +21,15 @@ export async function POST(request: NextRequest) {
     const login = await loginUser({ email, password });
 
     if (login) {
-      // console.log(login);
-
       response.data = login;
     } else {
       response = {
         error: true,
-        data: { status: false, message: "invalid credential" },
+        data: { status: false, message: "Invalid credentials" },
       };
     }
   } catch (error: any) {
-    response = { error: true, data: { status: false, message: `${error}` } };
+    response = { error: true, data: { status: false, message: error.message } };
     console.log(error);
   }
 

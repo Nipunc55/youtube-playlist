@@ -1,21 +1,16 @@
-/** @format */
+import dbConnect from "@/lib/mongodb";
+import Category from "@/models/Category";
 
-import { connect } from "@planetscale/database";
-import { config } from "@/db/config";
-import { drizzle } from "drizzle-orm/planetscale-serverless";
-import { videos, category } from "@/db/schema";
-import { eq } from "drizzle-orm";
+async function getAllCategories() {
+  await dbConnect();
 
-export default async function getAllCategories(): Promise<category[]> {
-  const conn = connect(config);
-  const db = drizzle(conn);
-
-  const results: category[] = await db
-    .select({
-      id: category.id,
-      category: category.category,
-    })
-    .from(category);
-
-  return results;
+  try {
+    const categories = await Category.find({});
+    return categories;
+  } catch (error) {
+    console.error("Error fetching categories:", error);
+    throw error;
+  }
 }
+
+export default getAllCategories;

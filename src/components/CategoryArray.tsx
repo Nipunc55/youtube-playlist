@@ -14,8 +14,10 @@ interface CategoryArrayProps {
 
 const CategoryArray = () => {
   const searchParams = useSearchParams();
+
   const [limits, setLimits] = useState({ minX: -80, maxX: 1 });
-  const { selectedCategoryId, categoryRefresh } = useStore();
+  const [selectedCategoryId, setCategory] = useState(1);
+  const { categoryRefresh } = useStore();
   const [isModalOpen, setModalOpen] = useState(false);
 
   const [categories, setCategories] = useState<category[]>();
@@ -32,7 +34,10 @@ const CategoryArray = () => {
   const handleButtonClick = (categoryId: number) => {
     useStore.setState((prev) => ({ ...prev, selectedCategoryId: categoryId }));
   };
-
+  React.useEffect(() => {
+    const categoryId = Number(searchParams.get("category")) || 1;
+    setCategory(categoryId);
+  }, []);
   React.useEffect(() => {
     const fetchData = async () => {
       try {
@@ -73,9 +78,10 @@ const CategoryArray = () => {
         }}
       >
         {categories &&
+          categories?.length > 0 &&
           categories
-            .sort((a, b) => a.id - b.id)
-            .map((category, index) => (
+            ?.sort((a, b) => a.id - b.id)
+            ?.map((category, index) => (
               <button
                 key={category.id}
                 className={`h-10 inline-flex items-center rounded-md  px-2 py-1 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10 mx-1 ${

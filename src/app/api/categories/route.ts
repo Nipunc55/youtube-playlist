@@ -5,12 +5,13 @@ import getAllCategories from "@/lib/getCategories";
 
 export async function GET(request: NextRequest) {
   let response = { error: false, data: {} };
+
   try {
     const categories = await getAllCategories();
 
     response.data = categories;
   } catch (error: any) {
-    response = { error: true, data: error };
+    response = { error: true, data: error.message };
     console.log(error);
   }
 
