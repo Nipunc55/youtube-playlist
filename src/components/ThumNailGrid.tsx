@@ -3,6 +3,7 @@
 // components/VideoGrid.js
 "use client";
 import { useStore } from "@/store/store";
+import { useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import VideoForm from "./VideosInput";
 import OneLogin from "next-auth/providers/onelogin";
@@ -26,7 +27,7 @@ const ThumNailGrid = ({ reload }: { reload: boolean }) => {
 
   const [videos, setVideos] = React.useState<videos[] | null | undefined>();
   const [thumbnails, setThumbnails] = React.useState<any | null | undefined>();
-
+  const searchParams = useSearchParams();
   React.useEffect(() => {
     const fetchData = async () => {
       try {
@@ -38,9 +39,9 @@ const ThumNailGrid = ({ reload }: { reload: boolean }) => {
           Authorization: `${token}`,
           // Add other headers if needed
         };
-
+        const categoryId = searchParams.get("category");
         const response = await fetch(
-          `/api/videos?id=${selectedCategoryId}&user_id=${userData.user_id}&pageNumber=${pageNumber}`,
+          `/api/videos?id=${categoryId}&user_id=${userData.user_id}&pageNumber=${pageNumber}`,
           { headers }
         );
         const data = await response.json();

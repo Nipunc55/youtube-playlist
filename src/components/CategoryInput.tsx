@@ -36,7 +36,7 @@ const CategoryInput: React.FC<CategoryInputProps> = ({ modalStatus }) => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(categoryName),
+        body: JSON.stringify({ category: categoryName }),
       });
 
       if (!response.ok) {

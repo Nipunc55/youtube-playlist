@@ -42,8 +42,8 @@ export default function LoginForm() {
         const login = await response.json();
         console.log(login);
 
-        if (login?.data.status) {
-          const { user_id, email, token, username } = login?.data;
+        if (!login?.error) {
+          const { _id, email, token, username } = login?.data;
 
           console.log("Successfully logged in!");
           localStorage.setItem("token", token);
@@ -51,13 +51,13 @@ export default function LoginForm() {
             ...prev,
             isAuthenticated: true,
             userData: {
-              user_id,
+              user_id: _id,
               email,
               username,
             },
           }));
         } else {
-          alert(login?.data?.message || "error login");
+          // alert(login?.data?.message || "error login");
           console.log(login);
         }
       } else {

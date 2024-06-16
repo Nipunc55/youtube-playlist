@@ -1,18 +1,20 @@
 /** @format */
-import { NextResponse } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
 import addCategory from "@/lib/addCategory";
-import { category } from "@/db/schema";
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   let response = { error: false, data: {} };
+
   try {
     // Parse the request body to get the data sent in the POST request
     const body = await request.json();
+
+    // Add the new category using the addCategory function
     const result = await addCategory(body);
 
     response.data = result;
   } catch (error: any) {
-    response = { error: true, data: error };
+    response = { error: true, data: error.message };
   }
 
   return NextResponse.json(response);

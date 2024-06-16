@@ -2,10 +2,8 @@
 
 import { NextResponse, NextRequest } from "next/server";
 import signUp from "@/lib/signUp";
-interface Credentials {
-  email: string;
-  password: string;
-}
+import { inputUser } from "@/lib/signUp"; // Import the inputUser interface
+
 export async function POST(request: NextRequest) {
   let response = { error: false, data: {} };
 
@@ -16,12 +14,9 @@ export async function POST(request: NextRequest) {
 
     const register = await signUp(userData);
 
-    if (register) {
-      response.data = register;
-    }
-    // response = { error: true, data: { message: "invalid credential" } };
+    response.data = register;
   } catch (error: any) {
-    response = { error: true, data: error };
+    response = { error: true, data: error.message };
     console.log(error);
   }
 

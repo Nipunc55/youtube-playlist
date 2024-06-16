@@ -118,7 +118,13 @@ const Navbar = ({ data }: any) => {
                     </>
                   ) : (
                     <li className="hover:bg-gray-200 py-2 px-4">
-                      <button className="text-white" onClick={handleLogin}>
+                      {/* <button className="text-white" onClick={handleLogin}> */}
+                      <button
+                        className="text-white"
+                        onClick={() => {
+                          handleLogin();
+                        }}
+                      >
                         Login
                       </button>
                     </li>
