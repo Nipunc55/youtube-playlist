@@ -1,0 +1,20 @@
+{
+  "rewrites": [
+    {
+      "source": "/blog/:match*",
+      "destination": "https://kalanawijewardhana.shop/:match*"
+    },
+    {
+      "source": "/assets/:match*",
+      "destination": "https://kalanawijewardhana.shop/assets/:match*"
+    },
+    {
+      "source": "/content/:match*",
+      "destination": "https://kalanawijewardhana.shop/content/:match*"
+    },
+    {
+      "source": "/public/:match*",
+      "destination": "https://kalanawijewardhana.shop/public/:match*"
+    }
+  ]
+}
