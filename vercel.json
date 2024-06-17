@@ -15,6 +15,10 @@
     {
       "source": "/public/*",
       "destination": "https://kalanawijewardhana.shop/public/:splat"
+    },
+    {
+      "source": "/blog/:post_slug*",
+      "destination": "https://kalanawijewardhana.shop/:post_slug*"
     }
   ]
 }
