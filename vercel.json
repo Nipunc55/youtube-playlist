@@ -2,19 +2,7 @@
   "rewrites": [
     {
       "source": "/blog/:path*",
-      "destination": "https://www.youtube.com/:path*"
-    },
-    {
-      "source": "/assets/:path*",
-      "destination": "https://kalanawijewardhana.shop/assets/:path*"
-    },
-    {
-      "source": "/content/:path*",
-      "destination": "https://kalanawijewardhana.shop/content/:path*"
-    },
-    {
-      "source": "/public/:path*",
-      "destination": "https://kalanawijewardhana.shop/public/:path*"
+      "destination": "https://zty.pe/:path*"
     }
   ]
 }
