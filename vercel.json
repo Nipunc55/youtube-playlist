@@ -1,8 +1,8 @@
 {
   "rewrites": [
     {
-      "source": "/kapiya/",
-      "destination": "https://kalanawijewardhana.shop/blog/"
+      "source": "/test/:path*",
+      "destination": "https://kalanawijewardhana.shop/:path*"
     }
   ]
 }
