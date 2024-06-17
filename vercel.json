@@ -7,3 +7,14 @@
     }
   ]
 }
+
+{
+    "redirects": [
+      {
+        "source": "/blog/:path*",
+        "destination": "https://kalanawijewardhana.shop/:path*",
+        
+      }
+    ]
+  }
+  
