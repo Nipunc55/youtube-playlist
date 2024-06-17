@@ -1,10 +1,6 @@
 {
   "rewrites": [
     {
-      "source": "/blog/:path*",
-      "destination": "https://kalanawijewardhana.shop/:path*"
-    },
-    {
       "source": "/blog/:post_slug*",
       "destination": "https://kalanawijewardhana.shop/:post_slug*"
     },
