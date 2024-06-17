@@ -2,19 +2,7 @@
   "redirects": [
     {
       "source": "/blog/:path*",
-      "destination": "https://kalanawijewardhana.shop/blog/:path*",
-      "permanent": true
+      "destination": "https://kalanawijewardhana.shop/:path*"
     }
   ]
 }
-
-{
-    "redirects": [
-      {
-        "source": "/blog/:path*",
-        "destination": "https://kalanawijewardhana.shop/:path*",
-        
-      }
-    ]
-  }
-  
