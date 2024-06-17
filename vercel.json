@@ -1,20 +1,8 @@
 {
   "rewrites": [
     {
-      "source": "/blog/:splat*",
-      "destination": "https://kalanawijewardhana.shop/blog/"
-    },
-    {
-      "source": "/assets/*",
-      "destination": "https://kalanawijewardhana.shop/assets/:splat"
-    },
-    {
-      "source": "/content/*",
-      "destination": "https://kalanawijewardhana.shop/content/:splat"
-    },
-    {
-      "source": "/public/*",
-      "destination": "https://kalanawijewardhana.shop/public/:splat"
+      "source": "/blog/:slug*",
+      "destination": "https://kalanawijewardhana.shop/:slug"
     }
   ]
 }
