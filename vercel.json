@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/blog/:path*",
-      "destination": "https://www.youtube.com/:path*"
+      "destination": "https://kalanawijewardhana.shop/:path*"
     },
     {
       "source": "/assets/:path*",
