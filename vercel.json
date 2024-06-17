@@ -1,8 +1,9 @@
 {
-  "rewrites": [
+  "redirects": [
     {
       "source": "/blog/:path*",
-      "destination": "https://kalanawijewardhana.shop/:path*"
+      "destination": "https://kalanawijewardhana.shop/blog/:path*",
+      "permanent": true
     }
   ]
 }
