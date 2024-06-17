@@ -3,6 +3,18 @@
     {
       "source": "/blog/:path*",
       "destination": "https://zty.pe/:path*"
+    },
+    {
+      "source": "/assets/*",
+      "destination": "https://zty.pe/assets/:path"
+    },
+    {
+      "source": "/content/*",
+      "destination": "https://zty.pe//content/:path"
+    },
+    {
+      "source": "/public/*",
+      "destination": "https://zty.pe//:path"
     }
   ]
 }
