@@ -5,12 +5,16 @@
       "destination": "https://kalanawijewardhana.shop/:path*"
     },
     {
-      "source": "/assets/*",
-      "destination": "https://kalanawijewardhana.shop/assets/:path"
+      "source": "/assets/:path*",
+      "destination": "https://kalanawijewardhana.shop/assets/:path*"
     },
     {
-      "source": "/content/*",
-      "destination": "https://kalanawijewardhana.shop/content/:path"
+      "source": "/content/:path*",
+      "destination": "https://kalanawijewardhana.shop/content/:path*"
+    },
+    {
+      "source": "/public/:path*",
+      "destination": "https://kalanawijewardhana.shop/public/:path*"
     }
   ]
 }
