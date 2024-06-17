@@ -1,8 +1,8 @@
 {
   "rewrites": [
     {
-      "source": "/blog/:post_slug*",
-      "destination": "https://kalanawijewardhana.shop/:post_slug*"
+      "source": "/blog/*",
+      "destination": "https://kalanawijewardhana.shop/*"
     },
     {
       "source": "/assets/:path*",
