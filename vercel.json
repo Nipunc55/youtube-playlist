@@ -5,6 +5,10 @@
       "destination": "https://kalanawijewardhana.shop/:path*"
     },
     {
+      "source": "/blog/:post_slug*",
+      "destination": "https://kalanawijewardhana.shop/:post_slug*"
+    },
+    {
       "source": "/assets/:path*",
       "destination": "https://kalanawijewardhana.shop/assets/:path*"
     },
