@@ -51,6 +51,9 @@ const Navbar = ({ data }: any) => {
           <div className="text-white font-bold text-lg">
             <a href="/">{data.title}</a>
           </div>
+          <div className="text-white font-bold text-lg">
+            <a href="/blog">Blog</a>
+          </div>
 
           <div className="flex space-x-4">
             <button
@@ -89,7 +92,7 @@ const Navbar = ({ data }: any) => {
                 </svg>
               )}
             </button>
-            <a href="/profile">Blog</a>
+
             {isDropdownOpen && (
               // <div className="absolute lg:right-50 right-0  mt-6 w-40 bg-blue border rounded shadow-md ">
               <div
