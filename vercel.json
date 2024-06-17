@@ -11,10 +11,6 @@
     {
       "source": "/content/*",
       "destination": "https://kalanawijewardhana.shop/:path"
-    },
-    {
-      "source": "/public/*",
-      "destination": "https://kalanawijewardhana.shop/:path"
     }
   ]
 }
