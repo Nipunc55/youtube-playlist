@@ -1,7 +1,7 @@
 {
   "rewrites": [
     {
-      "source": "/blog/*",
+      "source": "/test/*",
       "destination": "https://kalanawijewardhana.shop/*"
     },
     {
