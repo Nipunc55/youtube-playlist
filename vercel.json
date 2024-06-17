@@ -2,7 +2,20 @@
   "rewrites": [
     {
       "source": "/blog/(.*)",
-      "destination": "https://kalanawijewardhana.shop/$1"
+      "destination": "https://kalanawijewardhana.shop/blog/$1"
+    },
+    {
+      "source": "/assets/(.*)",
+      "destination": "https://kalanawijewardhana.shop/assets/$1"
+    },
+    {
+      "source": "/content/(.*)",
+      "destination": "https://kalanawijewardhana.shop/content/$1"
+    },
+    {
+      "source": "/public/(.*)",
+      "destination": "https://kalanawijewardhana.shop/public/$1"
     }
+    
   ]
 }
