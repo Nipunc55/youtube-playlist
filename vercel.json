@@ -5,20 +5,16 @@
       "destination": "https://kalanawijewardhana.shop/:path*"
     },
     {
-      "source": "/assets/*",
-      "destination": "https://kalanawijewardhana.shop/assets/:splat"
+      "source": "/assets/:path*",
+      "destination": "https://kalanawijewardhana.shop/assets/:path*"
     },
     {
-      "source": "/content/*",
-      "destination": "https://kalanawijewardhana.shop/content/:splat"
+      "source": "/content/:path*",
+      "destination": "https://kalanawijewardhana.shop/content/:path*"
     },
     {
-      "source": "/public/*",
-      "destination": "https://kalanawijewardhana.shop/public/:splat"
-    },
-    {
-      "source": "/blog/:post_slug*",
-      "destination": "https://kalanawijewardhana.shop/:post_slug*"
+      "source": "/public/:path*",
+      "destination": "https://kalanawijewardhana.shop/public/:path*"
     }
   ]
 }
