@@ -1,24 +1,23 @@
-/** @format */
-import { connect } from "@planetscale/database";
-import { config } from "@/db/config";
-import { drizzle } from "drizzle-orm/planetscale-serverless";
-import { category } from "@/db/schema";
-import { eq } from "drizzle-orm";
+import dbConnect from "@/lib/mongodb";
+import Category from "@/models/Category";
+
+interface ICategory {
+  category: string;
+  description?: string;
+}
 
 export default async function addCategory(
-  categoryName: string
+  categoryData: ICategory
 ): Promise<any | null> {
-  const conn = connect(config);
-  const db = drizzle(conn);
+  await dbConnect();
 
   try {
-    const data = { category: categoryName };
-    // Assuming that the videos table has an auto-incrementing 'id' field
-    const result = await db.insert(category).values(data).execute();
+    const newCategory = new Category(categoryData);
+    const result = await newCategory.save();
 
     return result || null;
   } catch (error) {
-    console.error("Error adding video:", error);
+    console.error("Error adding category:", error);
     throw error;
   }
 }

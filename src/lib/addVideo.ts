@@ -1,31 +1,50 @@
-/** @format */
-import { connect } from "@planetscale/database";
-import { config } from "@/db/config";
-import { drizzle } from "drizzle-orm/planetscale-serverless";
-import { videos, category } from "@/db/schema";
-import { eq } from "drizzle-orm";
+import mongoose from "mongoose";
+import dbConnect from "@/lib/mongodb";
+import Video from "@/models/Video";
 import { validateToken } from "@/utils/token";
 
-export default async function addVideo(
-  videoData: videos,
-  token: string | null
+interface IVideoData {
+  url: string;
+  categoryId?: string;
+  description?: string;
+}
+
+async function addVideo(
+  videoData: IVideoData,
+  token: string
 ): Promise<any | null> {
-  const conn = connect(config);
-  const db = drizzle(conn);
+  await dbConnect();
+
+  // Replace this with your actual token validation logic
+  const isValidToken = validateToken(token);
+  if (!isValidToken) {
+    throw new Error("Invalid authentication token");
+  }
 
   try {
-    if (!token) return { status: false, message: "token needed" };
-    const { user_id } = validateToken(token)?.data;
-    if (!user_id) return { status: false, message: "no user id" };
-    const video = {
-      ...videoData,
-      author_id: user_id,
-    };
-    const result = await db.insert(videos).values(video).execute();
+    const { categoryId, ...rest } = videoData;
 
+    // Validate and cast categoryId if provided
+    let categoryObjectId;
+    if (categoryId) {
+      if (mongoose.Types.ObjectId.isValid(categoryId)) {
+        categoryObjectId = new mongoose.Types.ObjectId(categoryId);
+      } else {
+        throw new Error("Invalid categoryId format");
+      }
+    }
+
+    const videoDoc = new Video({
+      ...rest,
+      categoryId: categoryObjectId,
+    });
+
+    const result = await videoDoc.save();
     return result || null;
   } catch (error) {
     console.error("Error adding video:", error);
     throw error;
   }
 }
+
+export default addVideo;
