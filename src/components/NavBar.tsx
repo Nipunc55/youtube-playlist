@@ -89,7 +89,7 @@ const Navbar = ({ data }: any) => {
                 </svg>
               )}
             </button>
-
+            <a href="/profile">Blog</a>
             {isDropdownOpen && (
               // <div className="absolute lg:right-50 right-0  mt-6 w-40 bg-blue border rounded shadow-md ">
               <div
