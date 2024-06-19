@@ -1,13 +1,9 @@
 {
-  "rewrites": [
-    { 
-  "redirects": [ 
-    { 
-      "source": "/blog/:id", 
-      "destination": "https://kalanawijewardhana.shop/:id", 
-      "permanent": true 
+  "redirects": [
+    {
+      "source": "/blog/:id",
+      "destination": "https://kalanawijewardhana.shop/:id",
+      "permanent": true
     }
-  ] 
-}
   ]
 }
