@@ -1,20 +1,13 @@
 {
   "rewrites": [
-    {
-      "source": "/blog/:path*",
-      "destination": "https://kalanawijewardhana.shop/:path*"
-    },
-    {
-      "source": "/assets/:path*",
-      "destination": "https://kalanawijewardhana.shop/assets/:path*"
-    },
-    {
-      "source": "/content/:path*",
-      "destination": "https://kalanawijewardhana.shop/content/:path*"
-    },
-    {
-      "source": "/public/:path*",
-      "destination": "https://kalanawijewardhana.shop/public/:path*"
+    { 
+  "redirects": [ 
+    { 
+      "source": "/blog/:id", 
+      "destination": "https://kalanawijewardhana.shop/:id", 
+      "permanent": true 
     }
+  ] 
+}
   ]
 }
