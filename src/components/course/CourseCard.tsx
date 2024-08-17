@@ -104,7 +104,7 @@ const CourseCard: React.FC<VideoCardProps> = ({
         ) : (
           <div className="absolute inset-0 opacity-0 bg-black bg-opacity-50 group-hover:opacity-100 transition-opacity duration-300 rounded-md">
             <button
-              onClick={() => openCoursePage(course)}
+              onClick={() => openCoursePage(course._id)}
               className="absolute bottom-0 left-0 z-10 bg-blue-500 text-white px-4 py-2 rounded-full"
             >
               Open
