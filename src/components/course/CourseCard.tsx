@@ -19,7 +19,7 @@ const CourseCard: React.FC<VideoCardProps> = ({
 }) => {
   const router = useRouter();
 
-  const openCoursePage = (courseId: any) => {
+  const openCoursePage = (courseId: string) => {
     router.push(`/course/${courseId}`);
   };
   return (
