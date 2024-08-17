@@ -5,7 +5,7 @@ import Badg from "./Badg";
 interface VideoCardProps {
   thumbnails: any;
   isAuthenticated: Boolean;
-  likeVideo: (videoId: number) => void; // Assuming likeVideo is a function with no parameters and no return value
+  likeVideo: (videoId: number) => void;
   openYouTubeLink: (video: any) => void;
 }
 // Functional Component
@@ -22,7 +22,6 @@ const VideoCard: React.FC<VideoCardProps> = ({
         thumbnails.map((video: any, index: number) => (
           <div
             key={video.id}
-            // className="bg-gray-100 rounded-md overflow-hidden transform transition-transform duration-300  cursor-pointer"
             className="relative group bg-gray-100 rounded-md overflow-hidden transform transition-transform duration-300 cursor-pointer"
           >
             <Badg id={index} />
@@ -53,7 +52,7 @@ const VideoCard: React.FC<VideoCardProps> = ({
                   </button>
                 ) : (
                   <button
-                    // onClick={() => likeVideo(video.id)}
+                    onClick={() => likeVideo(video.id)}
                     className="absolute bottom-0 right-0 z-10  text-white px-4 py-2 rounded-full"
                   >
                     <svg

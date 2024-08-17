@@ -2,11 +2,11 @@ import mongoose from "mongoose";
 
 const LikeSchema = new mongoose.Schema({
   userId: {
-    type: Number,
+    type: String,
     required: true,
   },
   videoId: {
-    type: Number,
+    type: String,
     required: true,
   },
   createdAt: {

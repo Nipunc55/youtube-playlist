@@ -3,6 +3,7 @@ import mongoose, { Document, Schema } from "mongoose";
 interface IVideo extends Document {
   url: string;
   categoryId?: mongoose.Types.ObjectId;
+  courseId?: mongoose.Types.ObjectId;
   likes?: number;
   description?: string;
   createdAt: Date;
@@ -11,6 +12,7 @@ interface IVideo extends Document {
 const VideoSchema: Schema = new Schema({
   url: { type: String, required: true, unique: true },
   categoryId: { type: Schema.Types.ObjectId, ref: "Category" },
+  courseId: { type: Schema.Types.ObjectId, ref: "Course" },
   likes: { type: Number, default: 0 },
   description: { type: String },
   createdAt: { type: Date, default: Date.now },

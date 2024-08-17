@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { useStore } from "@/store/store";
 import toast, { Toaster } from "react-hot-toast";
+
 interface VideoFormProps {
   onSubmit: (data: video) => void;
   categories: object[];
@@ -11,7 +12,8 @@ const VideoForm: React.FC<VideoFormProps> = ({ onSubmit, categories }) => {
   const { selectedCategoryId } = useStore();
   const [formData, setFormData] = useState<video>({
     url: "",
-    categoryId: selectedCategoryId,
+    // categoryId: selectedCategoryId,
+    courseId: "",
     likes: null,
   });
 
@@ -40,7 +42,7 @@ const VideoForm: React.FC<VideoFormProps> = ({ onSubmit, categories }) => {
   useEffect(() => {
     setFormData((prevData: any) => ({
       ...prevData,
-      categoryId: selectedCategoryId,
+      // categoryId: selectedCategoryId,
     }));
   }, [selectedCategoryId]);
   console.log(selectedCategoryId);

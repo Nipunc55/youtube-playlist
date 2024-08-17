@@ -51,9 +51,6 @@ const Navbar = ({ data }: any) => {
           <div className="text-white font-bold text-lg">
             <a href="/">{data.title}</a>
           </div>
-          <div className="text-white font-bold text-lg">
-            <a href="/blog">Blog</a>
-          </div>
 
           <div className="flex space-x-4">
             <button

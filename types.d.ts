@@ -15,8 +15,9 @@ type category = {
 };
 type video = {
   url: string;
-  categoryId: number | null;
+  categoryId?: number | null;
   likes: number | null;
+  courseId: string;
 };
 type categoryName = {
   category: string;

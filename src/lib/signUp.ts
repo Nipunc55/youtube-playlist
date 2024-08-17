@@ -1,5 +1,6 @@
 import dbConnect from "@/lib/mongodb";
 import User from "@/models/User";
+import { genareteToken } from "@/utils/token";
 import bcrypt from "bcrypt";
 
 export interface inputUser {
@@ -25,10 +26,19 @@ async function signUp(userData: inputUser) {
     email,
     password: hashedPassword,
   });
-
   const savedUser = await newUser.save();
+  const token = genareteToken({
+    user_id: savedUser._id,
+    username: savedUser.email,
+  });
 
-  return savedUser;
+  return {
+    status: true,
+    user_id: savedUser._id,
+    username: null,
+    email,
+    token,
+  };
 }
 
 export default signUp;

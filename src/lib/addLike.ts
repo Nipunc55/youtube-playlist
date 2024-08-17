@@ -1,34 +1,36 @@
-import { connect } from "@planetscale/database";
-import { config } from "@/db/config";
-import { drizzle } from "drizzle-orm/planetscale-serverless";
-import { likes } from "@/db/schema";
-import { eq } from "drizzle-orm";
+import Like from "@/models/Like";
 import { validateToken } from "@/utils/token";
+import dbConnect from "./mongodb";
 export default async function addLike(
   likeData: {
-    videoId: number;
+    videoId: String;
   },
   token: string | null
 ): Promise<any | null> {
-  const conn = connect(config);
-  const db = drizzle(conn);
+  await dbConnect();
 
   try {
     if (!token) return { status: false, message: "token needed" };
     const { user_id } = validateToken(token)?.data;
     if (!user_id) return { status: false, message: "no user id" };
 
+    const existingLike = await Like.findOne({
+      userId: user_id,
+      videoId: likeData.videoId,
+    });
+    if (existingLike) return { status: false, message: "Like already exists" };
     // If not, insert the like
-    const result = await db
-      .insert(likes)
-      .values({
-        userId: user_id,
-        videoId: likeData.videoId,
-      })
-      .execute();
+    const newLike = new Like({
+      userId: user_id,
+      videoId: likeData.videoId,
+    });
+    const result = await newLike.save();
+    console.log(result);
 
     return { status: true, message: "success full" };
   } catch (error) {
+    console.log(error);
+
     return { status: false, message: `${error}` };
     // console.error("Error adding like:", error);
     // throw error;

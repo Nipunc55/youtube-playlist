@@ -1,6 +1,3 @@
-/** @format */
-
-// components/VideoGrid.js
 "use client";
 import { useStore } from "@/store/store";
 import { useSearchParams } from "next/navigation";
@@ -8,14 +5,15 @@ import React, { useEffect, useState } from "react";
 import VideoForm from "./VideosInput";
 import Pagination from "./Pagination";
 import toast, { Toaster } from "react-hot-toast";
-import VideoCard from "./videoCards/videoCard";
 import Loading from "./videoCards/loading";
 import extractYouTubeVideoId from "@/utils/thumbNailExtracter";
+import CourseCard from "./course/CourseCard";
+
 interface ThumNailGridProps {
-  courseId: string;
+  categoryId: number;
 }
 
-const ThumNailGrid = ({ courseId }: ThumNailGridProps) => {
+const CourseGrid = ({ reload }: { reload: boolean }) => {
   const [loaded, setLoading] = useState(true);
   const [pageNumber, setPageNum] = useState(0);
   const [pageSize, setPageSize] = useState(12);
@@ -25,13 +23,13 @@ const ThumNailGrid = ({ courseId }: ThumNailGridProps) => {
     useStore();
 
   const [videos, setVideos] = React.useState<videos[] | null | undefined>();
-  const [thumbnails, setThumbnails] = React.useState<any | null | undefined>();
+  const [courses, setCourses] = React.useState<any | null | undefined>();
   const searchParams = useSearchParams();
-  React.useEffect(() => {
+  useEffect(() => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const token = localStorage.getItem("token"); // replace "your_token_key" with the actual key
+        const token = localStorage.getItem("token");
 
         // Build the headers object with the token
         const headers = {
@@ -40,12 +38,12 @@ const ThumNailGrid = ({ courseId }: ThumNailGridProps) => {
         };
         const categoryId = searchParams.get("category");
         const response = await fetch(
-          `/api/videos?id=${categoryId}&user_id=${userData.user_id}&pageNumber=${pageNumber}&courseId=${courseId}`,
+          `/api/course/get?id=${categoryId}&user_id=${userData.user_id}&pageNumber=${pageNumber}`,
           { headers }
         );
         const data = await response.json();
 
-        setVideos(data.data);
+        setCourses(data.data);
         setLoading(false);
       } catch (error) {
         console.log("Error fetching categories:", error);
@@ -55,19 +53,7 @@ const ThumNailGrid = ({ courseId }: ThumNailGridProps) => {
 
     fetchData();
   }, [selectedCategoryId, refresh, pageNumber]);
-  React.useEffect(() => {
-    const thumbnails: any =
-      videos &&
-      videos?.length > 0 &&
-      videos?.map((video: any, index) => ({
-        thumbnail: extractYouTubeVideoId(video.url),
-        id: video._id,
-        likes: video.likeCount,
-        url: video.url,
-        hasLike: video.hasLiked == 0 ? true : false,
-      }));
-    setThumbnails(thumbnails);
-  }, [videos]);
+
   React.useEffect(() => {
     setPageNum(0);
   }, [selectedCategoryId]);
@@ -84,7 +70,7 @@ const ThumNailGrid = ({ courseId }: ThumNailGridProps) => {
       const headers = {
         Authorization: `${token}`,
       };
-      videoData.courseId = courseId;
+
       const response = await fetch("/api/add-video", {
         method: "POST",
         headers: {
@@ -162,19 +148,23 @@ const ThumNailGrid = ({ courseId }: ThumNailGridProps) => {
   };
   return (
     <>
-      <VideoCard
-        thumbnails={thumbnails}
-        isAuthenticated={isAuthenticated}
-        likeVideo={likeVideo}
-        openYouTubeLink={openYouTubeLink}
-      />
+      {courses &&
+        courses.length > 0 &&
+        courses.map((course: any, index: number) => (
+          <CourseCard
+            course={course}
+            isAuthenticated={isAuthenticated}
+            likeVideo={likeVideo}
+            openYouTubeLink={openYouTubeLink}
+          />
+        ))}
 
       {isAuthenticated && (
         <VideoForm onSubmit={handleSubmit} categories={categoryList} />
       )}
 
       <Pagination
-        thumbnails={thumbnails}
+        thumbnails={courses}
         pageNumber={pageNumber}
         pageSize={pageSize}
         setPageNum={setPageNum}
@@ -185,4 +175,4 @@ const ThumNailGrid = ({ courseId }: ThumNailGridProps) => {
   );
 };
 
-export default ThumNailGrid;
+export default CourseGrid;

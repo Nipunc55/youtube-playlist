@@ -64,9 +64,11 @@ export default function RegisterForm() {
               username,
             },
           }));
-          toast.success(login?.data?.message);
+          console.log(login?.data);
+          toast.success(login?.data);
         } else {
-          toast.error(login?.data?.message);
+          console.log(login?.data);
+          toast.error(login?.data);
         }
       } else {
         console.log("Login failed.");

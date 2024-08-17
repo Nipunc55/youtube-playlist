@@ -5,7 +5,7 @@ import { validateToken } from "@/utils/token";
 
 interface IVideoData {
   url: string;
-  categoryId?: string;
+  courseId?: string;
   description?: string;
 }
 
@@ -22,22 +22,23 @@ async function addVideo(
   }
 
   try {
-    const { categoryId, ...rest } = videoData;
+    const { courseId, ...rest } = videoData;
 
-    // Validate and cast categoryId if provided
-    let categoryObjectId;
-    if (categoryId) {
-      if (mongoose.Types.ObjectId.isValid(categoryId)) {
-        categoryObjectId = new mongoose.Types.ObjectId(categoryId);
+    // Validate and cast course if provided
+    let courseObjectId;
+    if (courseId) {
+      if (mongoose.Types.ObjectId.isValid(courseId)) {
+        courseObjectId = new mongoose.Types.ObjectId(courseId);
       } else {
-        throw new Error("Invalid categoryId format");
+        throw new Error("Invalid course format");
       }
     }
 
     const videoDoc = new Video({
       ...rest,
-      categoryId: categoryObjectId,
+      courseId: courseObjectId,
     });
+    console.log(videoDoc);
 
     const result = await videoDoc.save();
     return result || null;

@@ -1,24 +1,23 @@
 /** @format */
 
-import CategoryArray from "@/components/CategoryArray";
-import CourseContainer from "@/components/CourseContainer";
-
 import ThumNailGrid from "@/components/ThumNailGrid";
 import TumbNailContainer from "@/components/TumbNailContainer";
 
-import TestClient from "@/components/testClient";
-import { useStore } from "@/store/store";
+export default async function Course({ params }: { params: { id: string } }) {
+  const courseId = params.id;
 
-export default async function Home() {
+  console.log("Component rendered with ID:", courseId);
   //   useStore.setState({ selectedCategoryId: selectedCategoryId });
   return (
     <>
-      <CategoryArray />
       <div
         className="flex mt-20 max-h-screen flex-col items-center justify-between "
         style={{ marginTop: "6.4rem" }}
       >
-        <CourseContainer />
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-4 w-full p-4 ">
+          <ThumNailGrid courseId={courseId} />
+          {/* <CourseGrid reload={loaded} /> */}
+        </div>
         {/* <TestClient /> */}
       </div>
     </>

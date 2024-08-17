@@ -1,7 +1,7 @@
 /** @format */
 
 import { NextResponse, NextRequest } from "next/server";
-import getAllVideos from "@/lib/getAllVideos";
+import getAllCourse from "@/lib/getAllCourses";
 
 export async function GET(request: NextRequest) {
   let response = { error: false, data: {} };
@@ -9,7 +9,6 @@ export async function GET(request: NextRequest) {
   try {
     const token = request.headers.get("Authorization") || null;
     const id = request.nextUrl.searchParams.get("id");
-    const courseId = request.nextUrl.searchParams.get("courseId") || "";
     const pageNumber: number = Number(
       request.nextUrl.searchParams.get("pageNumber") || 0
     );
@@ -17,7 +16,7 @@ export async function GET(request: NextRequest) {
       request.nextUrl.searchParams.get("pageSize") || 9
     );
 
-    const videos = await getAllVideos(courseId, token, pageNumber, pageSize);
+    const videos = await getAllCourse(token, pageNumber, pageSize);
     response.data = videos;
   } catch (error: any) {
     response = { error: true, data: error.message };
