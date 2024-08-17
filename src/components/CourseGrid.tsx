@@ -8,6 +8,7 @@ import toast, { Toaster } from "react-hot-toast";
 import Loading from "./videoCards/loading";
 import extractYouTubeVideoId from "@/utils/thumbNailExtracter";
 import CourseCard from "./course/CourseCard";
+import CourseForm from "./CourseForm";
 
 interface ThumNailGridProps {
   categoryId: number;
@@ -159,9 +160,9 @@ const CourseGrid = ({ reload }: { reload: boolean }) => {
           />
         ))}
 
-      {isAuthenticated && (
-        <VideoForm onSubmit={handleSubmit} categories={categoryList} />
-      )}
+      {/* {isAuthenticated && (
+        <CourseForm onSubmit={handleSubmit} categories={categoryList} />
+      )} */}
 
       <Pagination
         thumbnails={courses}
