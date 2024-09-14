@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import dbConnect from "@/lib/mongodb";
 import Video from "@/models/Video";
 import { validateToken } from "@/utils/token";
+import Course from "@/models/Course";
 
 interface IVideoData {
   url: string;
@@ -34,13 +35,25 @@ async function addVideo(
       }
     }
 
+    // Step 1: Create the video document
     const videoDoc = new Video({
       ...rest,
       courseId: courseObjectId,
     });
-    console.log(videoDoc);
 
     const result = await videoDoc.save();
+
+    // Step 2: If courseId exists, update the corresponding course
+    if (courseObjectId) {
+      await Course.findByIdAndUpdate(
+        courseObjectId,
+        {
+          $push: { videos: result._id }, // Add the new video's ObjectId to the course's videos array
+        },
+        { new: true } // Return the updated document
+      );
+    }
+
     return result || null;
   } catch (error) {
     console.error("Error adding video:", error);

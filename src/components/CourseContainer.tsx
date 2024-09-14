@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import CourseGrid from "./CourseGrid";
+import CreateCourse from "./CreateCourse";
 
 interface ThumNailGridProps {
   categoryId: number;
@@ -16,6 +17,7 @@ const CourseContainer = () => {
         {/* <ThumNailGrid reload={loaded} /> */}
         <CourseGrid reload={loaded} />
       </div>
+      <CreateCourse />
       {/* <Pagination /> */}
     </>
   );

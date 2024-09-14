@@ -2,12 +2,11 @@ import dbConnect from "@/lib/mongodb";
 import Course from "@/models/Course";
 import mongoose from "mongoose";
 
-interface ICourse {
+export interface ICourse {
   title: string;
   videos?: mongoose.Types.ObjectId;
   likes?: number;
   description?: string;
-  createdAt: Date;
 }
 export default async function addCourse(
   courseData: ICourse
