@@ -23,9 +23,9 @@ async function addVideo(
   }
 
   try {
-    const { courseId, ...rest } = videoData;
+    const { courseId, url, ...rest } = videoData;
 
-    // Validate and cast course if provided
+    // Validate and cast courseId if provided
     let courseObjectId;
     if (courseId) {
       if (mongoose.Types.ObjectId.isValid(courseId)) {
@@ -35,30 +35,34 @@ async function addVideo(
       }
     }
 
-    // Step 1: Create the video document
-    const videoDoc = new Video({
-      ...rest,
-      courseId: courseObjectId,
-    });
+    // Step 1: Check if a video with the same URL already exists
+    let videoDoc = await Video.findOne({ url });
 
-    const result = await videoDoc.save();
+    // Step 2: If the video does not exist, create a new video
+    if (!videoDoc) {
+      videoDoc = new Video({
+        ...rest,
+        url,
+        courseId: courseObjectId,
+      });
+      videoDoc = await videoDoc.save();
+    }
 
-    // Step 2: If courseId exists, update the corresponding course
+    // Step 3: If courseId exists, update the corresponding course by adding the video to the videos array
     if (courseObjectId) {
       await Course.findByIdAndUpdate(
         courseObjectId,
         {
-          $push: { videos: result._id }, // Add the new video's ObjectId to the course's videos array
+          $addToSet: { videos: videoDoc._id }, // Use $addToSet to avoid duplicate entries in the videos array
         },
-        { new: true } // Return the updated document
+        { new: true }
       );
     }
 
-    return result || null;
+    return videoDoc || null;
   } catch (error) {
     console.error("Error adding video:", error);
     throw error;
   }
 }
-
 export default addVideo;
